@@ -4,42 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IntroPageActivity"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".HighScoreActivity">
 
-
-    <Switch
-        android:id="@+id/musicSwitch"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:checked="true"
-        android:text="Music"
+    <TextView
+        android:id="@+id/highScoreTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="High Scores"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        android:thumbTint="@color/white"
-        android:trackTint="@color/white"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText,UnusedAttribute,UseSwitchCompatOrMaterialXml" />
-
-    <Switch
-        android:id="@+id/soundSwitch"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="125dp"
-        android:checked="true"
-        android:text="Game Sound"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:thumbTint="@color/white"
-        android:trackTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/musicSwitch"
-        tools:ignore="HardcodedText,UnusedAttribute,UseSwitchCompatOrMaterialXml" />
+        app:layout_constraintVertical_bias="0.176"
+        tools:ignore="HardcodedText,UnusedAttribute" />
 
     <Button
         android:id="@+id/backButton"
@@ -55,31 +37,14 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText,UnusedAttribute" />
 
-    <TextView
-        android:id="@+id/settingsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Settings"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/white"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/musicSwitch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="HardcodedText,UnusedAttribute" />
-
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/soldier1GIF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="132dp"
         android:src="@drawable/soldier"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/settingsTitle"
+        app:layout_constraintEnd_toStartOf="@+id/gameTitle"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -89,11 +54,12 @@
         android:id="@+id/soldier2GIF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
         android:src="@drawable/soldier"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
-        app:layout_constraintStart_toEndOf="@+id/settingsTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/gameTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.095" />
 
@@ -158,6 +124,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.77" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

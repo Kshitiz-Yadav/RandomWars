@@ -29,7 +29,11 @@ public class MusicPlayer{
         }
     }
 
-    public void pause() {
+    public static void pause() {
         player.pause();
+    }
+
+    public static void stop(){
+        player.stop();
     }
 }

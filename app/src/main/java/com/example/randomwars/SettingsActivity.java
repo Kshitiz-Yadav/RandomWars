@@ -1,6 +1,5 @@
 package com.example.randomwars;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +8,7 @@ import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{
+public class SettingsActivity extends AppCompatActivity{
 
     Button backToIntroPageButton;
     Switch musicSwitch, soundEffectsSwitch;
@@ -34,20 +33,36 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         musicSwitch = findViewById(R.id.musicSwitch);
         soundEffectsSwitch = findViewById(R.id.soundSwitch);
 
-        backToIntroPageButton.setOnClickListener(this);
+        backToIntroPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 MusicPlayer.setMusicOn(musicSwitch.isChecked());
             }
         });
+    }
 
+    //    Implementing onDestroy, onPause, and onPostResume to handle music player
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MusicPlayer.pause();
     }
 
     @Override
-    public void onClick(View v) {
-        Intent backToIntro = new Intent(SettingsActivity.this, IntroPageActivity.class);
-        backToIntro.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(backToIntro);
+    protected void onPause() {
+        super.onPause();
+        MusicPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MusicPlayer.play();
     }
 }
