@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,8 +34,8 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally{
-                    Intent toMain = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(toMain);
+                    Intent toIntro = new Intent(SplashActivity.this, IntroPageActivity.class);
+                    startActivity(toIntro);
                 }
             }
         };
