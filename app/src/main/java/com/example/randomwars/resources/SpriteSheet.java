@@ -12,42 +12,39 @@ public class SpriteSheet {
     private final int SPRITE_HEIGHT_PIXELS = 32;
     private Bitmap spriteSheet;
 
-    SpriteSheet(Context context){
+    public SpriteSheet(Context context){
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inScaled = false;
-        spriteSheet = BitmapFactory.decodeResource(context.getResources(), R.drawable.tiles, bitmapOptions);
+        spriteSheet = BitmapFactory.decodeResource(context.getResources(), R.drawable.sprites_sheet, bitmapOptions);
     }
 
-    Bitmap getSpriteSheet(){
-        return spriteSheet;
-    }
+    Bitmap getSpriteSheet(){return spriteSheet;}
 
     private Sprite getTileByIndex(int row, int col) {
         return new Sprite(this, new Rect(
-                col * SPRITE_WIDTH_PIXELS,
+                col *  SPRITE_WIDTH_PIXELS,
                 row * SPRITE_HEIGHT_PIXELS,
                 (col + 1) * SPRITE_WIDTH_PIXELS,
                 (row + 1) * SPRITE_HEIGHT_PIXELS
         ));
     }
 
-    public Sprite getFloorTile(){
-        return getTileByIndex(0,0);
-    }
+    public Sprite getFloorTile(){return getTileByIndex(0,0);}
 
-    public Sprite getWaterTile() {
-        return getTileByIndex(0, 1);
-    }
+    public Sprite getWaterTile() {return getTileByIndex(0, 1);}
 
-    public Sprite getLavaTile() {
-        return getTileByIndex(0,2);
-    }
+    public Sprite getLavaTile() {return getTileByIndex(0,2);}
 
-    public Sprite getGrassTile() {
-        return getTileByIndex(1,0);
-    }
+    public Sprite getGrassTile() {return getTileByIndex(1,0);}
 
-    public Sprite getDirtTile() {
-        return getTileByIndex(1, 1);
+    public Sprite getDirtTile() {return getTileByIndex(1, 1);}
+
+    public Sprite[] getPlayerArray() {
+        Sprite[] playerSpriteArray = new Sprite[3];
+        playerSpriteArray[0] = getTileByIndex(1,2);
+        playerSpriteArray[1] = getTileByIndex(2,0);
+        playerSpriteArray[2] = getTileByIndex(2,1);
+        return playerSpriteArray;
+
     }
 }
