@@ -1,12 +1,16 @@
 package com.example.randomwars;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,11 +21,15 @@ public class MainActivity extends AppCompatActivity {
     Button confirmMainMenu, denyMainMenu;
     Button confirmExit, denyExit;
     Dialog pauseDialog, exitDialog, mainMenuDialog;
+    private GameArea gameArea;
+    private RelativeLayout forPauseButton;
+    private FrameLayout forGame;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        Log.d("MainActivity: ", "onCreate() called");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
 //        For immersive mode, hiding notification bar, hiding navigation bar and going fullscreen
         this.getWindow().getDecorView().setSystemUiVisibility(
@@ -34,13 +42,34 @@ public class MainActivity extends AppCompatActivity {
         );
 
 //        Setting up pause game button to pause game loop
-        pauseButton = findViewById(R.id.pauseButton);
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPausePopUp();
-            }
+        gameArea = new GameArea(this);
+        forGame = new FrameLayout(this);
+        forPauseButton = new RelativeLayout(this);
+
+        pauseButton = new Button(this);
+        pauseButton.setText("ii");
+
+        RelativeLayout.LayoutParams pauseButtonParams = new RelativeLayout.LayoutParams(135, 150);
+        pauseButtonParams.addRule(RelativeLayout.ALIGN_TOP, RelativeLayout.TRUE);
+        pauseButtonParams.addRule(RelativeLayout.ALIGN_LEFT, RelativeLayout.TRUE);
+        pauseButtonParams.topMargin = 50;
+        pauseButtonParams.leftMargin = 50;
+        pauseButton.setLayoutParams(pauseButtonParams);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+
+        forPauseButton.setLayoutParams(params);
+        forPauseButton.addView(pauseButton);
+
+        forGame.addView(gameArea);
+        forGame.addView(forPauseButton);
+
+        pauseButton.setOnClickListener(v -> {
+            gameArea.pause();
+            showPausePopUp();
         });
+
+        setContentView(forGame);
     }
 
 //    For showing paused menu
@@ -53,36 +82,19 @@ public class MainActivity extends AppCompatActivity {
         mainMenuButton = pauseDialog.findViewById(R.id.mainMenuButton);
         exitButton = pauseDialog.findViewById(R.id.exitButton);
 
-        resumeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseDialog.dismiss();
-            }
+        resumeButton.setOnClickListener(v -> {
+            pauseDialog.dismiss();
+//            gameArea.resume();
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toSettings = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(toSettings);
-            }
+        settingsButton.setOnClickListener(v -> {
+            Intent toSettings = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(toSettings);
         });
 
-        mainMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmMainMenuPopUp();
-            }
-        });
+        mainMenuButton.setOnClickListener(v -> confirmMainMenuPopUp());
 
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmExitPopUp();
-            }
-
-
-        });
+        exitButton.setOnClickListener(v -> confirmExitPopUp());
 
         pauseDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         pauseDialog.show();
@@ -96,20 +108,12 @@ public class MainActivity extends AppCompatActivity {
         confirmExit = exitDialog.findViewById(R.id.toMainMenuConfirmButton);
         denyExit = exitDialog.findViewById(R.id.toMainMenuDenyButton);
 
-        confirmExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishAffinity();
-                System.exit(0);
-            }
+        confirmExit.setOnClickListener(v -> {
+            finishAffinity();
+            System.exit(0);
         });
 
-        denyExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exitDialog.dismiss();
-            }
-        });
+        denyExit.setOnClickListener(v -> exitDialog.dismiss());
 
         exitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         exitDialog.show();
@@ -123,22 +127,50 @@ public class MainActivity extends AppCompatActivity {
         confirmMainMenu = mainMenuDialog.findViewById(R.id.toMainMenuConfirmButton);
         denyMainMenu = mainMenuDialog.findViewById(R.id.toMainMenuDenyButton);
 
-        confirmMainMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toMainMenu = new Intent(MainActivity.this, IntroPageActivity.class);
-                startActivity(toMainMenu);
-            }
+        confirmMainMenu.setOnClickListener(v -> {
+            Intent toMainMenu = new Intent(MainActivity.this, IntroPageActivity.class);
+            startActivity(toMainMenu);
         });
 
-        denyMainMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainMenuDialog.dismiss();
-            }
-        });
+        denyMainMenu.setOnClickListener(v -> mainMenuDialog.dismiss());
 
         mainMenuDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mainMenuDialog.show();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("MainActivity: ", "onStart() called");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("MainActivity: ", "onResume() called");
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("MainActivity: ", "onStop() called");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("MainActivity: ", "onDestroy() called");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d("MainActivity: ", "onPause() called");
+        gameArea.pause();
+        super.onPause();
     }
 }
