@@ -39,6 +39,8 @@ public class SpriteSheet {
 
     public Sprite getDirtTile() {return getTileByIndex(1, 1);}
 
+    public Sprite getBulletSprite() {return getTileByIndex(5,2);}
+
     public Sprite[] getPlayerArray() {
         Sprite[] playerSpriteArray = new Sprite[3];
         playerSpriteArray[0] = getTileByIndex(1,2);

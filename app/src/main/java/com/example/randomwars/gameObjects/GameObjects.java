@@ -8,7 +8,7 @@ public abstract class GameObjects {
     double directionX = 1.0;
     double directionY = 0.0;
 
-    GameObjects(double positionX, double positionY){
+    public GameObjects(double positionX, double positionY){
         this.positionX = positionX;;
         this.positionY = positionY;
     }

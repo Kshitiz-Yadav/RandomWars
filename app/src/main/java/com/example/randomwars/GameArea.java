@@ -10,11 +10,15 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import com.example.randomwars.gameObjects.Player;
+import com.example.randomwars.gameObjects.Bullet;
 import com.example.randomwars.gamePanel.Joystick;
 import com.example.randomwars.gamePanel.Performance;
 import com.example.randomwars.map.TileMap;
 import com.example.randomwars.resources.MyAnimator;
 import com.example.randomwars.resources.SpriteSheet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -30,6 +34,8 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     private int moveJoystickPointerID = 0;
     private int shootJoystickPointerID = 0;
     private Joystick shootJoystick;
+    private List<Bullet> bulletsList = new ArrayList<Bullet>();
+    private int updatesBeforeNextBullet = (int) GameLoop.MAX_UPS / 3;
 
     public GameArea(Context context) {
         super(context);
@@ -66,6 +72,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                         // Joystick is pressed in this event -> setIsPressed(true) and store pointer id
                         shootJoystickPointerID = event.getPointerId(i);
                         shootJoystick.setIsPressed(true);
+
                     }
                 }
                 return true;
@@ -124,6 +131,19 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         moveJoystick.update();
         shootJoystick.update();
         player.update();
+
+        if(shootJoystick.getIsPressed()){
+            if(updatesBeforeNextBullet == 0){
+                bulletsList.add(new Bullet(getContext(), player, shootJoystick.getActuatorX(), shootJoystick.getActuatorY()));
+                updatesBeforeNextBullet = (int) GameLoop.MAX_UPS / 3;
+            }
+            else{
+                updatesBeforeNextBullet--;
+            }
+        }
+        for(Bullet bullet: bulletsList){
+            bullet.update();
+        }
     }
 
     @Override
@@ -133,6 +153,10 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         moveJoystick.draw(canvas);
         shootJoystick.draw(canvas);
         performance.draw(canvas);
+
+        for(Bullet bullet: bulletsList){
+            bullet.draw(canvas);
+        }
     }
 
 
