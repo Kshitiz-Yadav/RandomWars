@@ -1,7 +1,9 @@
 package com.example.randomwars;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -9,8 +11,8 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
-import com.example.randomwars.gameObjects.Player;
 import com.example.randomwars.gameObjects.Bullet;
+import com.example.randomwars.gameObjects.Player;
 import com.example.randomwars.gamePanel.Joystick;
 import com.example.randomwars.gamePanel.Performance;
 import com.example.randomwars.map.TileMap;
@@ -46,12 +48,18 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         gameLoop = new GameLoop(this, surfaceHolder);
 
         performance = new Performance(gameLoop, context);
-        moveJoystick = new Joystick(350, 750, 150, 75);
-        shootJoystick = new Joystick(1850, 750, 150, 75);
+        moveJoystick = new Joystick(350, 750, 150, 100);
+        shootJoystick = new Joystick(1850, 750, 150, 100);
 
         spriteSheet = new SpriteSheet(context);
         animator = new MyAnimator(spriteSheet.getPlayerArray());
         player = new Player(500,500, moveJoystick, animator);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player);
+
+        tileMap = new TileMap(spriteSheet);
 
         setFocusable(true);
     }
@@ -144,19 +152,26 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         for(Bullet bullet: bulletsList){
             bullet.update();
         }
+
+        gameDisplay.update();
     }
 
     @Override
     public void draw(Canvas canvas){
         super.draw(canvas);
-        player.draw(canvas);
+
+        tileMap.draw(canvas, gameDisplay);
+
+        player.draw(canvas, gameDisplay);
+
+        for(Bullet bullet: bulletsList){
+            bullet.draw(canvas, gameDisplay);
+        }
+
+
         moveJoystick.draw(canvas);
         shootJoystick.draw(canvas);
         performance.draw(canvas);
-
-        for(Bullet bullet: bulletsList){
-            bullet.draw(canvas);
-        }
     }
 
 

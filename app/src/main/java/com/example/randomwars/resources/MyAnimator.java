@@ -2,6 +2,7 @@ package com.example.randomwars.resources;
 
 import android.graphics.Canvas;
 
+import com.example.randomwars.GameDisplay;
 import com.example.randomwars.gameObjects.Player;
 
 public class MyAnimator {
@@ -17,14 +18,14 @@ public class MyAnimator {
         this.playerSpriteArray = playerSpriteArray;
     }
 
-    public void draw(Canvas canvas, Player player) {
+    public void draw(Canvas canvas, GameDisplay gameDisplay, Player player) {
         switch (player.getPlayerState().getState()){
             case NOT_MOVING:
-                drawFrame(canvas, player, playerSpriteArray[notMovingindex]);
+                drawFrame(canvas, player, gameDisplay, playerSpriteArray[notMovingindex]);
                 break;
             case STARTED_MOVING:
                 remainingUpdates = MAX_UPDATES_BEFORE_NEXT_FRAME;
-                drawFrame(canvas, player, playerSpriteArray[movingIndex]);
+                drawFrame(canvas, player, gameDisplay, playerSpriteArray[movingIndex]);
                 break;
             case IS_MOVING:
                 remainingUpdates--;
@@ -32,7 +33,7 @@ public class MyAnimator {
                     remainingUpdates = MAX_UPDATES_BEFORE_NEXT_FRAME;
                     changeMovingIndex();
                 }
-                drawFrame(canvas, player, playerSpriteArray[movingIndex]);
+                drawFrame(canvas, player, gameDisplay, playerSpriteArray[movingIndex]);
         }
     }
 
@@ -45,7 +46,10 @@ public class MyAnimator {
         }
     }
 
-    private void drawFrame(Canvas canvas, Player player, Sprite sprite) {
-        sprite.draw(canvas, (int) player.getPositionX(), (int) player.getPositionY());
+    private void drawFrame(Canvas canvas, Player player, GameDisplay gameDisplay, Sprite sprite) {
+        sprite.draw(canvas,
+                (int) gameDisplay.coordinatesX(player.getPositionX()) - sprite.getWidth(),
+                (int)gameDisplay.coordinatesY(player.getPositionY()) - sprite.getHeight()
+        );
     }
 }

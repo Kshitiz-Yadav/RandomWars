@@ -2,6 +2,7 @@ package com.example.randomwars.gameObjects;
 
 import android.graphics.Canvas;
 
+import com.example.randomwars.GameDisplay;
 import com.example.randomwars.GameLoop;
 import com.example.randomwars.gamePanel.Joystick;
 import com.example.randomwars.resources.MyAnimator;
@@ -22,8 +23,8 @@ public class Player extends GameObjects{
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        animator.draw(canvas, this);
+    public void draw(Canvas canvas, GameDisplay gameDisplay) {
+        animator.draw(canvas, gameDisplay, this);
     }
 
     @Override

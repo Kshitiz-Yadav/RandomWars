@@ -22,11 +22,11 @@ public class Sprite {
         );
     }
 
-    private int getHeight() {
+    public int getHeight() {
         return rect.height();
     }
 
-    private int getWidth() {
+    public int getWidth() {
         return rect.width();
     }
 }

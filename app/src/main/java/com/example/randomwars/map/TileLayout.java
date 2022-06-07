@@ -2,8 +2,8 @@ package com.example.randomwars.map;
 
 public class TileLayout {
 
-    public static final int TILE_WIDTH_PIXELS = 32;
-    public static final int TILE_HEIGHT_PIXELS = 32;
+    public static final int TILE_WIDTH_PIXELS = 32*4;
+    public static final int TILE_HEIGHT_PIXELS = 32*4;
     public static final int NUMBER_OF_ROW_TILES = 100;
     public static final int NUMBER_OF_COLUMN_TILES = 100;
 

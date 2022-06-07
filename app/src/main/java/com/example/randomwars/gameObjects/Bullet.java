@@ -3,6 +3,7 @@ package com.example.randomwars.gameObjects;
 import android.content.Context;
 import android.graphics.Canvas;
 
+import com.example.randomwars.GameDisplay;
 import com.example.randomwars.GameLoop;
 import com.example.randomwars.resources.Sprite;
 import com.example.randomwars.resources.SpriteSheet;
@@ -10,6 +11,7 @@ import com.example.randomwars.resources.SpriteSheet;
 public class Bullet extends GameObjects {
 
     public static final double SPEED_PIXELS_PER_SECOND = 800.0;
+    private static final double MIN_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS * 2;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
 
     Sprite bullet;
@@ -24,8 +26,10 @@ public class Bullet extends GameObjects {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        bullet.draw(canvas, (int) positionX, (int) positionY);
+    public void draw(Canvas canvas, GameDisplay gameDisplay) {
+        bullet.draw(canvas,
+                (int) gameDisplay.coordinatesX(positionX) - bullet.getWidth(),
+                (int)gameDisplay.coordinatesY(positionY) - bullet.getHeight());
     }
 
     @Override

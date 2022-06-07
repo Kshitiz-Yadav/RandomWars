@@ -2,6 +2,8 @@ package com.example.randomwars.gameObjects;
 
 import android.graphics.Canvas;
 
+import com.example.randomwars.GameDisplay;
+
 public abstract class GameObjects {
     double positionX = 0.0, positionY = 0.0;
     double velocityX = 0.0, velocityY = 0.0;
@@ -19,7 +21,7 @@ public abstract class GameObjects {
     public double getDirectionX() {return directionX;}
     public double getDirectionY() {return directionY;}
 
-    public abstract void draw(Canvas canvas);
+    public abstract void draw(Canvas canvas, GameDisplay gameDisplay);
     public abstract void update();
 
     public static double getDistanceBetween(GameObjects obj1, GameObjects obj2){

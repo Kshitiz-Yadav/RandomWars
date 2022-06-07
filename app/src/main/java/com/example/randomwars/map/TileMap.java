@@ -31,7 +31,7 @@ public class TileMap {
         for(int i=0;i<NUMBER_OF_ROW_TILES;i++){
             for(int j=0;j<NUMBER_OF_COLUMN_TILES;j++){
                 tileMap[i][j] = Tile.getTile(
-                  layout[i][j],
+                  layout[i][j] - 1,
                   getRectByIndex(i, j),
                   spriteSheet
                 );
@@ -64,11 +64,11 @@ public class TileMap {
     }
 
     public void draw(Canvas canvas, GameDisplay gameDisplay) {
-//        canvas.drawBitmap(
-//                mapBitmap,
-//                gameDisplay.getGameRect(),
-//                gameDisplay.DISPLAY_RECT,
-//                null
-//        );
+        canvas.drawBitmap(
+                mapBitmap,
+                gameDisplay.getGameRect(),
+                gameDisplay.displayRect,
+                null
+        );
     }
 }
