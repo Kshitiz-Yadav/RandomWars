@@ -47,6 +47,23 @@ public class SpriteSheet {
         playerSpriteArray[1] = getTileByIndex(2,0);
         playerSpriteArray[2] = getTileByIndex(2,1);
         return playerSpriteArray;
-
     }
+
+    public Sprite[] getSoldierEnemyArray(){
+        Sprite[] soldierEnemyArray = new Sprite[3];
+        soldierEnemyArray[0] = getTileByIndex(2,2);
+        soldierEnemyArray[1] = getTileByIndex(3,0);
+        soldierEnemyArray[2] = getTileByIndex(3,1);
+        return soldierEnemyArray;
+    }
+
+    public Sprite[] getTankEnemyArray(){
+        Sprite[] tankEnemyArray = new Sprite[4];
+        tankEnemyArray[0] = getTileByIndex(3,2);
+        tankEnemyArray[1] = getTileByIndex(4,0);
+        tankEnemyArray[2] = getTileByIndex(4,1);
+        tankEnemyArray[0] = getTileByIndex(4,2);
+        return tankEnemyArray;
+    }
+
 }

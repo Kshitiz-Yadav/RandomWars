@@ -3,6 +3,7 @@ package com.example.randomwars.resources;
 import android.graphics.Canvas;
 
 import com.example.randomwars.GameDisplay;
+import com.example.randomwars.GameLoop;
 import com.example.randomwars.gameObjects.Player;
 
 public class MyAnimator {
@@ -11,7 +12,7 @@ public class MyAnimator {
     private int notMovingindex = 0;
     private int movingIndex = 1;
     private int remainingUpdates;
-    private static final int MAX_UPDATES_BEFORE_NEXT_FRAME = 5;
+    private static final int MAX_UPDATES_BEFORE_NEXT_FRAME = (int) GameLoop.MAX_UPS / 6;
 
 
     public MyAnimator(Sprite[] playerSpriteArray){

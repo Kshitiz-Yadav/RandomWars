@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 
 import com.example.randomwars.gameObjects.Bullet;
 import com.example.randomwars.gameObjects.Player;
+import com.example.randomwars.gameObjects.SoldierEnemy;
+import com.example.randomwars.gameObjects.TankEnemy;
 import com.example.randomwars.gamePanel.Joystick;
 import com.example.randomwars.gamePanel.Performance;
 import com.example.randomwars.map.TileMap;
@@ -38,6 +40,8 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     private Joystick shootJoystick;
     private List<Bullet> bulletsList = new ArrayList<Bullet>();
     private int updatesBeforeNextBullet = (int) GameLoop.MAX_UPS / 3;
+    private List<SoldierEnemy> soldierEnemyList = new ArrayList<SoldierEnemy>();
+    private List<TankEnemy> tankEnemyList = new ArrayList<TankEnemy>();
 
     public GameArea(Context context) {
         super(context);
@@ -153,6 +157,20 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
             bullet.update();
         }
 
+        if(SoldierEnemy.readyToSpawn()){
+            soldierEnemyList.add(new SoldierEnemy(getContext(), player));
+        }
+        for(SoldierEnemy soldierEnemy: soldierEnemyList){
+            soldierEnemy.update();
+        }
+
+        if(TankEnemy.readyToSpawn()){
+            tankEnemyList.add(new TankEnemy(getContext(), player));
+        }
+        for(TankEnemy tankEnemy: tankEnemyList){
+            tankEnemy.update();
+        }
+
         gameDisplay.update();
     }
 
@@ -168,6 +186,13 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
             bullet.draw(canvas, gameDisplay);
         }
 
+        for(SoldierEnemy soldierEnemy: soldierEnemyList){
+            soldierEnemy.draw(canvas, gameDisplay);
+        }
+
+        for(TankEnemy tankEnemy: tankEnemyList){
+            tankEnemy.draw(canvas, gameDisplay);
+        }
 
         moveJoystick.draw(canvas);
         shootJoystick.draw(canvas);
