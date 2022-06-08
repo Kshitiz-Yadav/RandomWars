@@ -16,6 +16,7 @@ import com.example.randomwars.gameObjects.GameObjects;
 import com.example.randomwars.gameObjects.Player;
 import com.example.randomwars.gameObjects.SoldierEnemy;
 import com.example.randomwars.gameObjects.TankEnemy;
+import com.example.randomwars.gamePanel.GameOver;
 import com.example.randomwars.gamePanel.Joystick;
 import com.example.randomwars.gamePanel.Performance;
 import com.example.randomwars.map.TileMap;
@@ -45,12 +46,16 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     private List<SoldierEnemy> soldierEnemyList = new ArrayList<SoldierEnemy>();
     private List<TankEnemy> tankEnemyList = new ArrayList<TankEnemy>();
     private List<Bullet> tankBulletList = new ArrayList<Bullet>();
+    private GameOver gameOver;
+    private SurfaceHolder surfaceHolder;
+    private Context context;
 
     public GameArea(Context context) {
         super(context);
 
-        SurfaceHolder surfaceHolder = getHolder();
+        this.surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
+        this.context = context;
 
         gameLoop = new GameLoop(this, surfaceHolder);
 
@@ -60,13 +65,15 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
         spriteSheet = new SpriteSheet(context);
         animator = new MyAnimator(spriteSheet.getPlayerArray());
-        player = new Player(500,500, moveJoystick, animator);
+        player = new Player(500,500, context, moveJoystick, animator);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player);
 
         tileMap = new TileMap(spriteSheet);
+
+        gameOver = new GameOver(context);
 
         setFocusable(true);
     }
@@ -143,6 +150,17 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
+
+        if(player.getHealthPoint() <= 0){
+            return;
+//            gameLoop.stopLoop();
+//            try{
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+        }
+
         moveJoystick.update();
         shootJoystick.update();
         player.update();
@@ -268,6 +286,10 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         moveJoystick.draw(canvas);
         shootJoystick.draw(canvas);
         performance.draw(canvas);
+
+        if(player.getHealthPoint() <= 0){
+            gameOver.draw(canvas);
+        }
     }
 
 

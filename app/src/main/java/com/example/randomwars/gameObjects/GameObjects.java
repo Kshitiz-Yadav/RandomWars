@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import com.example.randomwars.GameDisplay;
 
 public abstract class GameObjects {
+    public int MAX_HEALTH_POINTS;
     double positionX = 0.0, positionY = 0.0;
     double velocityX = 0.0, velocityY = 0.0;
     double directionX = 1.0;
@@ -27,4 +28,6 @@ public abstract class GameObjects {
     public static double getDistanceBetween(GameObjects obj1, GameObjects obj2){
         return Math.sqrt((Math.pow(obj1.getPositionX() - obj2.getPositionX(), 2)) + (Math.pow(obj1.getPositionY() - obj2.getPositionY(),2)));
     }
+
+    public abstract int getHealthPoint();
 }

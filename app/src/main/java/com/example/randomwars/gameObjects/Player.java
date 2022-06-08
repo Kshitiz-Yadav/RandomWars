@@ -1,9 +1,11 @@
 package com.example.randomwars.gameObjects;
 
+import android.content.Context;
 import android.graphics.Canvas;
 
 import com.example.randomwars.GameDisplay;
 import com.example.randomwars.GameLoop;
+import com.example.randomwars.gamePanel.HealthBar;
 import com.example.randomwars.gamePanel.Joystick;
 import com.example.randomwars.resources.MyAnimator;
 import com.example.randomwars.resources.SpriteSheet;
@@ -15,27 +17,30 @@ public class Player extends GameObjects{
     private final MyAnimator animator;
     private final Joystick moveJoystick;
     private PlayerState playerState;
-    private final int MAX_HEALTH_POINTS = 10;
-    private int healthPoints = MAX_HEALTH_POINTS;
+    private int healthPoints;
+    private HealthBar healthBar;
 
-    public Player(double positionX, double positionY, Joystick moveJoystick,MyAnimator animator){
+    public Player(double positionX, double positionY, Context context, Joystick moveJoystick, MyAnimator animator){
         super(positionX, positionY);
         this.animator = animator;
         this.moveJoystick = moveJoystick;
         this.playerState = new PlayerState(this);
+        healthBar = new HealthBar(context, this);
+        MAX_HEALTH_POINTS = 10;
+        healthPoints = MAX_HEALTH_POINTS;
     }
 
     public boolean isHit(GameObjects object){
         if((object.positionX > positionX - SpriteSheet.SPRITE_WIDTH_PIXELS && object.positionX < positionX + SpriteSheet.SPRITE_WIDTH_PIXELS)
                 && (object.positionY > positionY - SpriteSheet.SPRITE_HEIGHT_PIXELS && object.positionY < positionY + SpriteSheet.SPRITE_HEIGHT_PIXELS)){
             switch(object.getClass().getName()){
-                case "SoldierEnemy":
+                case "com.example.randomwars.gameObjects.SoldierEnemy":
                     healthPoints -= 2;
                     break;
-                case "TankEnemy":
+                case "com.example.randomwars.gameObjects.TankEnemy":
                     healthPoints -= 5;
                     break;
-                case "Bullet":
+                case "com.example.randomwars.gameObjects.Bullet":
                     healthPoints -= 1;
                     break;
                 default:
@@ -49,6 +54,7 @@ public class Player extends GameObjects{
     @Override
     public void draw(Canvas canvas, GameDisplay gameDisplay) {
         animator.draw(canvas, gameDisplay, this);
+        healthBar.draw(canvas, gameDisplay);
     }
 
     @Override
@@ -70,6 +76,11 @@ public class Player extends GameObjects{
         }
 
         playerState.update();
+    }
+
+    @Override
+    public int getHealthPoint() {
+        return healthPoints;
     }
 
     private double getDistanceBetweenPoints(double x, double y, double velocityX, double velocityY) {

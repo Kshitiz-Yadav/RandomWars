@@ -58,6 +58,11 @@ public class Bullet extends GameObjects {
         }
     }
 
+    @Override
+    public int getHealthPoint() {
+        return 0;
+    }
+
     private double getDistanceBetweenPoints(double x, double y, double velocityX, double velocityY) {
         return Math.sqrt((Math.pow(x - velocityX, 2)) + (Math.pow(y - velocityY, 2)));
     }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import com.example.randomwars.GameDisplay;
 import com.example.randomwars.GameLoop;
+import com.example.randomwars.gamePanel.HealthBar;
 import com.example.randomwars.resources.Sprite;
 import com.example.randomwars.resources.SpriteSheet;
 
@@ -22,9 +23,10 @@ public class TankEnemy extends GameObjects{
     private int spriteIndex = 0;
     private final int MAX_UPDATES_BEFORE_NEXT_FRAME = (int) GameLoop.MAX_UPS / 6;
     private int remainingUpdatesForFrameChange = MAX_UPDATES_BEFORE_NEXT_FRAME;
-    private int healthPoints = 5;
+    private int healthPoints;
     private final int MAX_UPDATES_TO_SHOOT = (int) GameLoop.MAX_UPS;
     private int remainingUpdatesToShoot = MAX_UPDATES_TO_SHOOT;
+    private HealthBar healthBar;
 
     public TankEnemy(Context context, Player player){
         super(
@@ -34,6 +36,9 @@ public class TankEnemy extends GameObjects{
         this.player = player;
         spriteSheet = new SpriteSheet(context);
         enemySpriteArray = spriteSheet.getTankEnemyArray();
+        healthBar = new HealthBar(context, this);
+        MAX_HEALTH_POINTS = 5;
+        healthPoints = MAX_HEALTH_POINTS;
     }
 
     public static boolean readyToSpawn() {
@@ -55,6 +60,7 @@ public class TankEnemy extends GameObjects{
         }
         drawFrame(canvas, gameDisplay, enemySpriteArray[spriteIndex]);
 
+        healthBar.draw(canvas, gameDisplay);
     }
 
     private void changeMovingIndex() {
@@ -103,6 +109,11 @@ public class TankEnemy extends GameObjects{
 
         positionX += velocityX;
         positionY += velocityY;
+    }
+
+    @Override
+    public int getHealthPoint() {
+        return healthPoints;
     }
 
     public boolean isDead(Bullet bullet) {

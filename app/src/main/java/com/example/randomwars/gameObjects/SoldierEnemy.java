@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import com.example.randomwars.GameDisplay;
 import com.example.randomwars.GameLoop;
+import com.example.randomwars.gamePanel.HealthBar;
 import com.example.randomwars.resources.Sprite;
 import com.example.randomwars.resources.SpriteSheet;
 
@@ -12,7 +13,7 @@ public class SoldierEnemy extends GameObjects{
 
     public static final double SPEED_PIXELS_PER_SECOND = 250.0;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
-    private static final double SPAWNS_PER_MINUTE = 10;
+    private static final double SPAWNS_PER_MINUTE = 20;
     private static final double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
     private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
     private static double remainingUpdates = UPDATES_PER_SPAWN;
@@ -22,7 +23,8 @@ public class SoldierEnemy extends GameObjects{
     private int spriteIndex = 0;
     private final int MAX_UPDATES_BEFORE_NEXT_FRAME = (int) GameLoop.MAX_UPS / 6;
     private int remainingUpdatesForFrameChange = MAX_UPDATES_BEFORE_NEXT_FRAME;
-    private int healthPoints = 2;
+    private HealthBar healthBar;
+    private int healthPoints;
 
     public SoldierEnemy(Context context, Player player){
         super(
@@ -32,6 +34,9 @@ public class SoldierEnemy extends GameObjects{
         this.player = player;
         spriteSheet = new SpriteSheet(context);
         enemySpriteArray = spriteSheet.getSoldierEnemyArray();
+        healthBar = new HealthBar(context, this);
+        MAX_HEALTH_POINTS = 2;
+        healthPoints = MAX_HEALTH_POINTS;
     }
 
     public static boolean readyToSpawn() {
@@ -67,6 +72,7 @@ public class SoldierEnemy extends GameObjects{
         remainingUpdatesForFrameChange--;
         drawFrame(canvas, gameDisplay, enemySpriteArray[spriteIndex]);
 
+        healthBar.draw(canvas, gameDisplay);
     }
 
     private void changeMovingIndex() {
@@ -104,5 +110,10 @@ public class SoldierEnemy extends GameObjects{
 
         positionX += velocityX;
         positionY += velocityY;
+    }
+
+    @Override
+    public int getHealthPoint() {
+        return healthPoints;
     }
 }
