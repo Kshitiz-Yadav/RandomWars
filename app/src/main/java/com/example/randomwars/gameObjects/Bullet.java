@@ -12,16 +12,26 @@ public class Bullet extends GameObjects {
 
     public static final double SPEED_PIXELS_PER_SECOND = 800.0;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
+    private static final double UPDATES_BEFORE_TIMEOUT = GameLoop.MAX_UPS * 5;
+    public double remainingUpdates = UPDATES_BEFORE_TIMEOUT;
 
-    Sprite bullet;
+    public Sprite bullet;
     SpriteSheet spriteSheet;
 
-    public Bullet(Context context, Player player, double actuatorX, double actuatorY){
-        super(player.getPositionX(), player.getPositionY());
+    public Bullet(Context context, GameObjects object, double actuatorX, double actuatorY){
+        super(object.getPositionX(), object.getPositionY());
         this.spriteSheet = new SpriteSheet(context);
         this.bullet = spriteSheet.getBulletSprite();
         this.velocityX = actuatorX * MAX_SPEED;
         this.velocityY = actuatorY * MAX_SPEED;
+    }
+
+    public boolean timeOut(){
+        if(remainingUpdates == 0){
+            return true;
+        }
+        remainingUpdates--;
+        return false;
     }
 
     @Override

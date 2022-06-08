@@ -8,8 +8,8 @@ import android.graphics.Rect;
 import com.example.randomwars.R;
 
 public class SpriteSheet {
-    private final int SPRITE_WIDTH_PIXELS = 32;
-    private final int SPRITE_HEIGHT_PIXELS = 32;
+    public static final int SPRITE_WIDTH_PIXELS = 32;
+    public static final int SPRITE_HEIGHT_PIXELS = 32;
     private Bitmap spriteSheet;
 
     public SpriteSheet(Context context){
@@ -50,10 +50,9 @@ public class SpriteSheet {
     }
 
     public Sprite[] getSoldierEnemyArray(){
-        Sprite[] soldierEnemyArray = new Sprite[3];
-        soldierEnemyArray[0] = getTileByIndex(2,2);
-        soldierEnemyArray[1] = getTileByIndex(3,0);
-        soldierEnemyArray[2] = getTileByIndex(3,1);
+        Sprite[] soldierEnemyArray = new Sprite[2];
+        soldierEnemyArray[0] = getTileByIndex(3,0);
+        soldierEnemyArray[1] = getTileByIndex(3,1);
         return soldierEnemyArray;
     }
 

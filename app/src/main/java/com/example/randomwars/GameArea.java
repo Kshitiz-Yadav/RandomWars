@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import com.example.randomwars.gameObjects.Bullet;
+import com.example.randomwars.gameObjects.GameObjects;
 import com.example.randomwars.gameObjects.Player;
 import com.example.randomwars.gameObjects.SoldierEnemy;
 import com.example.randomwars.gameObjects.TankEnemy;
@@ -22,6 +23,7 @@ import com.example.randomwars.resources.MyAnimator;
 import com.example.randomwars.resources.SpriteSheet;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
@@ -42,6 +44,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     private int updatesBeforeNextBullet = (int) GameLoop.MAX_UPS / 3;
     private List<SoldierEnemy> soldierEnemyList = new ArrayList<SoldierEnemy>();
     private List<TankEnemy> tankEnemyList = new ArrayList<TankEnemy>();
+    private List<Bullet> tankBulletList = new ArrayList<Bullet>();
 
     public GameArea(Context context) {
         super(context);
@@ -156,6 +159,9 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         for(Bullet bullet: bulletsList){
             bullet.update();
         }
+        for(Bullet bullet: tankBulletList){
+            bullet.update();
+        }
 
         if(SoldierEnemy.readyToSpawn()){
             soldierEnemyList.add(new SoldierEnemy(getContext(), player));
@@ -169,6 +175,67 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         }
         for(TankEnemy tankEnemy: tankEnemyList){
             tankEnemy.update();
+            if(tankEnemy.readyToShoot()){
+                tankBulletList.add(new Bullet(getContext(),
+                        tankEnemy,
+                        (player.getPositionX() - tankEnemy.getPositionX()) / (GameObjects.getDistanceBetween(player, tankEnemy) * 2),
+                        (player.getPositionY() - tankEnemy.getPositionY()) / (GameObjects.getDistanceBetween(player, tankEnemy) * 2)
+                        )
+                );
+            }
+        }
+
+        Iterator<SoldierEnemy> iteratorSoldierEnemy = soldierEnemyList.iterator();
+        while (iteratorSoldierEnemy.hasNext()) {
+            SoldierEnemy soldierEnemy = iteratorSoldierEnemy.next();
+            Iterator<Bullet> iteratorBullets = bulletsList.iterator();
+            while (iteratorBullets.hasNext()) {
+                Bullet bullet = iteratorBullets.next();
+                if (soldierEnemy.isDead(bullet)) {
+                    iteratorBullets.remove();
+                    iteratorSoldierEnemy.remove();
+                    break;
+                }
+            }
+            if(player.isHit(soldierEnemy)){
+                iteratorSoldierEnemy.remove();
+            }
+        }
+
+        Iterator<TankEnemy> iteratorTankEnemy = tankEnemyList.iterator();
+        while (iteratorTankEnemy.hasNext()) {
+            TankEnemy tankEnemy = iteratorTankEnemy.next();
+            Iterator<Bullet> iteratorBullets = bulletsList.iterator();
+            while (iteratorBullets.hasNext()) {
+                Bullet bullet = iteratorBullets.next();
+                if (tankEnemy.isDead(bullet)) {
+                    iteratorBullets.remove();
+                    iteratorTankEnemy.remove();
+                    break;
+                }
+            }
+            if(player.isHit(tankEnemy)){
+                iteratorTankEnemy.remove();
+            }
+        }
+
+        Iterator<Bullet> bulletIterator = bulletsList.iterator();
+        while((bulletIterator.hasNext())){
+            Bullet bullet = bulletIterator.next();
+            if(bullet.timeOut()){
+                bulletIterator.remove();
+            }
+        }
+
+        Iterator<Bullet> tankBulletIterator = tankBulletList.iterator();
+        while((tankBulletIterator.hasNext())){
+            Bullet bullet = tankBulletIterator.next();
+            if(bullet.timeOut()){
+                tankBulletIterator.remove();
+            }
+            if(player.isHit(bullet)){
+                tankBulletIterator.remove();
+            }
         }
 
         gameDisplay.update();
@@ -183,6 +250,10 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         player.draw(canvas, gameDisplay);
 
         for(Bullet bullet: bulletsList){
+            bullet.draw(canvas, gameDisplay);
+        }
+
+        for(Bullet bullet: tankBulletList){
             bullet.draw(canvas, gameDisplay);
         }
 

@@ -12,16 +12,19 @@ public class TankEnemy extends GameObjects{
 
     public static final double SPEED_PIXELS_PER_SECOND = 100.0;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
-    private static double SPAWNS_PER_MINUTE = 2;
-    private static double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
-    private static double UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
+    private static final double SPAWNS_PER_MINUTE = 2;
+    private static final double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
+    private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
     private static double remainingUpdates = UPDATES_PER_SPAWN;
-    private Player player;
+    private final Player player;
     Sprite[] enemySpriteArray;
     SpriteSheet spriteSheet;
     private int spriteIndex = 0;
-    private int MAX_UPDATES_BEFORE_NEXT_FRAME = (int) GameLoop.MAX_UPS / 6;
+    private final int MAX_UPDATES_BEFORE_NEXT_FRAME = (int) GameLoop.MAX_UPS / 6;
     private int remainingUpdatesForFrameChange = MAX_UPDATES_BEFORE_NEXT_FRAME;
+    private int healthPoints = 5;
+    private final int MAX_UPDATES_TO_SHOOT = (int) GameLoop.MAX_UPS;
+    private int remainingUpdatesToShoot = MAX_UPDATES_TO_SHOOT;
 
     public TankEnemy(Context context, Player player){
         super(
@@ -45,9 +48,9 @@ public class TankEnemy extends GameObjects{
 
     @Override
     public void draw(Canvas canvas, GameDisplay gameDisplay) {
-        remainingUpdates--;
-        if(remainingUpdates == 0){
-            remainingUpdates = MAX_UPDATES_BEFORE_NEXT_FRAME;
+        remainingUpdatesForFrameChange--;
+        if(remainingUpdatesForFrameChange == 0){
+            remainingUpdatesForFrameChange = MAX_UPDATES_BEFORE_NEXT_FRAME;
             changeMovingIndex();
         }
         drawFrame(canvas, gameDisplay, enemySpriteArray[spriteIndex]);
@@ -63,6 +66,17 @@ public class TankEnemy extends GameObjects{
                 (int) gameDisplay.coordinatesX(positionX) - sprite.getWidth(),
                 (int) gameDisplay.coordinatesY(positionY) - sprite.getHeight()
         );
+    }
+
+    public boolean readyToShoot(){
+        if(remainingUpdatesToShoot == 0){
+            remainingUpdatesToShoot = MAX_UPDATES_TO_SHOOT;
+            return true;
+        }
+        else{
+            remainingUpdatesToShoot--;
+        }
+        return false;
     }
 
     @Override
@@ -89,5 +103,19 @@ public class TankEnemy extends GameObjects{
 
         positionX += velocityX;
         positionY += velocityY;
+    }
+
+    public boolean isDead(Bullet bullet) {
+        if((bullet.positionX > positionX - bullet.bullet.getWidth() && bullet.positionX < positionX + enemySpriteArray[0].getWidth())
+                && (bullet.positionY > positionY - bullet.bullet.getHeight() && bullet.positionY < positionY + enemySpriteArray[0].getHeight())
+                && healthPoints == 1){
+            return true;
+        }
+        else if((bullet.positionX > positionX - bullet.bullet.getWidth() && bullet.positionX < positionX + enemySpriteArray[0].getWidth())
+                && (bullet.positionY > positionY - bullet.bullet.getHeight() && bullet.positionY < positionY + enemySpriteArray[0].getHeight())){
+            healthPoints--;
+            bullet.remainingUpdates = 0;
+        }
+        return false;
     }
 }
