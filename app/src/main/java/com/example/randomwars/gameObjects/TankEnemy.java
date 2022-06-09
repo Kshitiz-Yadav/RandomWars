@@ -11,11 +11,12 @@ import com.example.randomwars.resources.SpriteSheet;
 
 public class TankEnemy extends GameObjects{
 
-    public static final double SPEED_PIXELS_PER_SECOND = 100.0;
-    private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
-    private static final double SPAWNS_PER_MINUTE = 2;
-    private static final double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
-    private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
+    public static double SPEED_PIXELS_PER_SECOND = 100.0;
+    public static double bulletSpeedPoison = 2;
+    private static double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
+    private static double SPAWNS_PER_MINUTE = 2;
+    private static double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
+    private static double UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
     private static double remainingUpdates = UPDATES_PER_SPAWN;
     private final Player player;
     Sprite[] enemySpriteArray;
@@ -48,6 +49,18 @@ public class TankEnemy extends GameObjects{
         } else {
             remainingUpdates --;
             return false;
+        }
+    }
+
+    public static void incrementLevel() {
+        SPAWNS_PER_MINUTE += 2;
+        SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
+        UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
+
+        SPEED_PIXELS_PER_SECOND += 2;
+        MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
+        if(bulletSpeedPoison > 0.5){
+            bulletSpeedPoison -= 0.1;
         }
     }
 

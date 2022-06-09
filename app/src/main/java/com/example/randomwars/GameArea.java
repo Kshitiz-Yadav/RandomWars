@@ -3,6 +3,7 @@ package com.example.randomwars;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,8 +11,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
+import com.example.randomwars.gameObjects.AtomBomb;
 import com.example.randomwars.gameObjects.Bullet;
+import com.example.randomwars.gameObjects.FirstAid;
 import com.example.randomwars.gameObjects.GameObjects;
 import com.example.randomwars.gameObjects.Player;
 import com.example.randomwars.gameObjects.SoldierEnemy;
@@ -46,9 +50,16 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     private List<SoldierEnemy> soldierEnemyList = new ArrayList<SoldierEnemy>();
     private List<TankEnemy> tankEnemyList = new ArrayList<TankEnemy>();
     private List<Bullet> tankBulletList = new ArrayList<Bullet>();
+    private List<FirstAid> firstAidList = new ArrayList<FirstAid>();
+    private List<AtomBomb> atomBombList = new ArrayList<AtomBomb>();
     private GameOver gameOver;
     private SurfaceHolder surfaceHolder;
     private Context context;
+
+    private final int KILL_SOLDIER_ENEMY_POINTS = 2;
+    private final int KILL_TANK_ENEMY_POINTS = 5;
+    private int score = 0;
+    private int level = 1;
 
     public GameArea(Context context) {
         super(context);
@@ -152,18 +163,21 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
 
         if(player.getHealthPoint() <= 0){
-            return;
-//            gameLoop.stopLoop();
-//            try{
-//                Thread.sleep(3000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            gameLoop.stopLoop();
+            surfaceHolder.getSurface().release();
+            synchronized (surfaceHolder) {
+                ((Activity) context).finish();
+            }
         }
 
         moveJoystick.update();
         shootJoystick.update();
         player.update();
+
+        if(score >= level * 50){
+            level++;
+            incrementLevel();
+        }
 
         if(shootJoystick.getIsPressed()){
             if(updatesBeforeNextBullet == 0){
@@ -181,6 +195,14 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
             bullet.update();
         }
 
+        if(FirstAid.readyToSpawn()){
+            firstAidList.add(new FirstAid(getContext(), player));
+        }
+
+        if(AtomBomb.readyToSpawn()){
+            atomBombList.add(new AtomBomb(getContext(), player));
+        }
+
         if(SoldierEnemy.readyToSpawn()){
             soldierEnemyList.add(new SoldierEnemy(getContext(), player));
         }
@@ -196,8 +218,8 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
             if(tankEnemy.readyToShoot()){
                 tankBulletList.add(new Bullet(getContext(),
                         tankEnemy,
-                        (player.getPositionX() - tankEnemy.getPositionX()) / (GameObjects.getDistanceBetween(player, tankEnemy) * 2),
-                        (player.getPositionY() - tankEnemy.getPositionY()) / (GameObjects.getDistanceBetween(player, tankEnemy) * 2)
+                        (player.getPositionX() - tankEnemy.getPositionX()) / (GameObjects.getDistanceBetween(player, tankEnemy) * TankEnemy.bulletSpeedPoison),
+                        (player.getPositionY() - tankEnemy.getPositionY()) / (GameObjects.getDistanceBetween(player, tankEnemy) * TankEnemy.bulletSpeedPoison)
                         )
                 );
             }
@@ -212,6 +234,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                 if (soldierEnemy.isDead(bullet)) {
                     iteratorBullets.remove();
                     iteratorSoldierEnemy.remove();
+                    score += KILL_SOLDIER_ENEMY_POINTS;
                     break;
                 }
             }
@@ -229,6 +252,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                 if (tankEnemy.isDead(bullet)) {
                     iteratorBullets.remove();
                     iteratorTankEnemy.remove();
+                    score += KILL_TANK_ENEMY_POINTS;
                     break;
                 }
             }
@@ -246,13 +270,39 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         Iterator<Bullet> tankBulletIterator = tankBulletList.iterator();
-        while((tankBulletIterator.hasNext())){
+        while(tankBulletIterator.hasNext()){
             Bullet bullet = tankBulletIterator.next();
             if(bullet.timeOut()){
                 tankBulletIterator.remove();
             }
             if(player.isHit(bullet)){
                 tankBulletIterator.remove();
+            }
+        }
+
+        Iterator<FirstAid> firstAidIterator = firstAidList.iterator();
+        while(firstAidIterator.hasNext()){
+            FirstAid firstAid = firstAidIterator.next();
+            if(firstAid.timeOut()){
+                firstAidIterator.remove();
+            }
+            if(player.isHit(firstAid)){
+                firstAidIterator.remove();
+            }
+        }
+
+        Iterator<AtomBomb> atomBombIterator = atomBombList.iterator();
+        while(atomBombIterator.hasNext()){
+            AtomBomb atomBomb = atomBombIterator.next();
+            if(atomBomb.timeOut()){
+                atomBombIterator.remove();
+            }
+            if(player.isHit(atomBomb)){
+                atomBombIterator.remove();
+                score += soldierEnemyList.size() * KILL_SOLDIER_ENEMY_POINTS + tankEnemyList.size() * KILL_TANK_ENEMY_POINTS;
+                soldierEnemyList.clear();
+                tankEnemyList.clear();
+                tankBulletList.clear();
             }
         }
 
@@ -266,6 +316,14 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         tileMap.draw(canvas, gameDisplay);
 
         player.draw(canvas, gameDisplay);
+
+        for(FirstAid firstAid: firstAidList){
+            firstAid.draw(canvas, gameDisplay);
+        }
+
+        for(AtomBomb atomBomb: atomBombList){
+            atomBomb.draw(canvas, gameDisplay);
+        }
 
         for(Bullet bullet: bulletsList){
             bullet.draw(canvas, gameDisplay);
@@ -287,11 +345,25 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         shootJoystick.draw(canvas);
         performance.draw(canvas);
 
+        String scoreString = Integer.toString(score);
+        String levelString = Integer.toString(level);
+        Paint paint = new Paint();
+        int color = ContextCompat.getColor(context, R.color.white);
+        paint.setColor(color);
+        paint.setTextSize(40);
+        canvas.drawText("LEVEL:  " + levelString, 1600, 100, paint);
+        canvas.drawText("SCORE: " + scoreString, 1800, 100, paint);
+
         if(player.getHealthPoint() <= 0){
             gameOver.draw(canvas);
         }
     }
 
+
+    private void incrementLevel() {
+        SoldierEnemy.incrementLevel();
+        TankEnemy.incrementLevel();
+    }
 
     public void pause() {
         gameLoop.stopLoop();

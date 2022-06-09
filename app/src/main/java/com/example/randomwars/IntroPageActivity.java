@@ -55,7 +55,7 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
             case R.id.startButton:
                 Intent toMain = new Intent(IntroPageActivity.this, MainActivity.class);
                 startActivity(toMain);
-                finish();
+//                finish();
                 break;
             case R.id.viewHighScoreButton:
                 Intent toHighScores = new Intent(IntroPageActivity.this, HighScoreActivity.class);

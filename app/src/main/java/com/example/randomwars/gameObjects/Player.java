@@ -43,6 +43,8 @@ public class Player extends GameObjects{
                 case "com.example.randomwars.gameObjects.Bullet":
                     healthPoints -= 1;
                     break;
+                case "com.example.randomwars.gameObjects.FirstAid":
+                    healthPoints = MAX_HEALTH_POINTS;
                 default:
                     break;
             }

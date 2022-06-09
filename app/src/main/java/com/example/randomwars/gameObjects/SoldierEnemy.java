@@ -11,11 +11,11 @@ import com.example.randomwars.resources.SpriteSheet;
 
 public class SoldierEnemy extends GameObjects{
 
-    public static final double SPEED_PIXELS_PER_SECOND = 250.0;
-    private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
-    private static final double SPAWNS_PER_MINUTE = 20;
-    private static final double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
-    private static final double UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
+    public static double SPEED_PIXELS_PER_SECOND = 250.0;
+    private static double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
+    private static double SPAWNS_PER_MINUTE = 10;
+    private static double SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
+    private static double UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
     private static double remainingUpdates = UPDATES_PER_SPAWN;
     private final Player player;
     Sprite[] enemySpriteArray;
@@ -47,6 +47,15 @@ public class SoldierEnemy extends GameObjects{
             remainingUpdates --;
             return false;
         }
+    }
+
+    public static void incrementLevel() {
+        SPAWNS_PER_MINUTE += 2;
+        SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
+        UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
+
+        SPEED_PIXELS_PER_SECOND += 2;
+        MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
     }
 
     public boolean isDead(Bullet bullet){

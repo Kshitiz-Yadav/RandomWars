@@ -41,6 +41,10 @@ public class SpriteSheet {
 
     public Sprite getBulletSprite() {return getTileByIndex(5,2);}
 
+    public Sprite getFirstAid() {return getTileByIndex(5,0);}
+
+    public Sprite getAtomBomb() {return getTileByIndex(5, 1);}
+
     public Sprite[] getPlayerArray() {
         Sprite[] playerSpriteArray = new Sprite[3];
         playerSpriteArray[0] = getTileByIndex(1,2);

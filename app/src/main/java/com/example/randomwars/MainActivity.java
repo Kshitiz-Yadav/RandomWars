@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.d("MainActivity: ", "onDestroy() called");
+        Intent toMainMenu = new Intent(MainActivity.this, IntroPageActivity.class);
+        startActivity(toMainMenu);
         super.onDestroy();
     }
 

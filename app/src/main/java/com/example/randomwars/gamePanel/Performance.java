@@ -17,6 +17,7 @@ public class Performance {
     public Performance(GameLoop gameLoop, Context context){
         this.gameLoop = gameLoop;
         this.context = context;
+
     }
 
 
