@@ -3,6 +3,7 @@ package com.example.randomwars.gameObjects;
 import android.graphics.Canvas;
 
 import com.example.randomwars.GameDisplay;
+import com.example.randomwars.resources.SpriteSheet;
 
 public abstract class GameObjects {
     public int MAX_HEALTH_POINTS;
@@ -10,6 +11,11 @@ public abstract class GameObjects {
     double velocityX = 0.0, velocityY = 0.0;
     double directionX = 1.0;
     double directionY = 0.0;
+    public final double MIN_POS_X = SpriteSheet.SPRITE_WIDTH_PIXELS * 10 * 4;
+    public final double MAX_POS_X = SpriteSheet.SPRITE_WIDTH_PIXELS * (90 - 1) * 4;
+    public final double MIN_POS_Y = SpriteSheet.SPRITE_HEIGHT_PIXELS * 5 * 4 ;
+    public final double MAX_POS_Y = SpriteSheet.SPRITE_HEIGHT_PIXELS * (95 - 1) * 4;
+    public final double OFFSET = 50;
 
     public GameObjects(double positionX, double positionY){
         this.positionX = positionX;;

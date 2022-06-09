@@ -18,13 +18,13 @@ public class GameOver {
     public void draw(Canvas canvas) {
         String text = "Game Over";
 
-        float x = 675;
-        float y = 500;
+        float x = 350;
+        float y = 300;
 
         Paint paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.red);
         paint.setColor(color);
-        float textSize = 150;
+        float textSize = 300;
         paint.setTextSize(textSize);
 
         canvas.drawText(text, x, y, paint);

@@ -25,6 +25,18 @@ public class FirstAid extends GameObjects{
                 Math.random() * 4000 + player.positionX - 2000,
                 Math.random() * 2000 + player.positionY - 1000
         );
+        if(positionX < MIN_POS_X){
+            positionX = MIN_POS_X + OFFSET;
+        }
+        else if(positionX > MAX_POS_X){
+            positionX = MAX_POS_X - OFFSET;
+        }
+        if(positionY < MIN_POS_Y){
+            positionY = MIN_POS_Y + OFFSET;
+        }
+        else if(positionY > MAX_POS_Y){
+            positionY = MAX_POS_Y - OFFSET;
+        }
         this.spriteSheet = new SpriteSheet(context);
         firstAid = spriteSheet.getFirstAid();
     }

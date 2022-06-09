@@ -34,6 +34,18 @@ public class TankEnemy extends GameObjects{
                 Math.random() * 2000 + player.positionX - 1000,
                 Math.random() * 1000 + player.positionY - 500
         );
+        if(positionX < MIN_POS_X){
+            positionX = MIN_POS_X + OFFSET;
+        }
+        else if(positionX > MAX_POS_X){
+            positionX = MAX_POS_X - OFFSET;
+        }
+        if(positionY < MIN_POS_Y){
+            positionY = MIN_POS_Y + OFFSET;
+        }
+        else if(positionY > MAX_POS_Y){
+            positionY = MAX_POS_Y - OFFSET;
+        }
         this.player = player;
         spriteSheet = new SpriteSheet(context);
         enemySpriteArray = spriteSheet.getTankEnemyArray();

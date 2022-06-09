@@ -55,6 +55,8 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     private GameOver gameOver;
     private SurfaceHolder surfaceHolder;
     private Context context;
+//    private FirebaseDatabase rootNode;
+//    private DatabaseReference reference;
 
     private final int KILL_SOLDIER_ENEMY_POINTS = 2;
     private final int KILL_TANK_ENEMY_POINTS = 5;
@@ -76,7 +78,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
         spriteSheet = new SpriteSheet(context);
         animator = new MyAnimator(spriteSheet.getPlayerArray());
-        player = new Player(500,500, context, moveJoystick, animator);
+        player = new Player(2000,1000, context, moveJoystick, animator);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -85,6 +87,8 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         tileMap = new TileMap(spriteSheet);
 
         gameOver = new GameOver(context);
+
+//        rootNode = FirebaseDatabase.getInstance();
 
         setFocusable(true);
     }
@@ -163,11 +167,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
 
         if(player.getHealthPoint() <= 0){
-            gameLoop.stopLoop();
-            surfaceHolder.getSurface().release();
-            synchronized (surfaceHolder) {
-                ((Activity) context).finish();
-            }
+            ((Activity)context).finish();
         }
 
         moveJoystick.update();
@@ -181,8 +181,10 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
         if(shootJoystick.getIsPressed()){
             if(updatesBeforeNextBullet == 0){
-                bulletsList.add(new Bullet(getContext(), player, shootJoystick.getActuatorX(), shootJoystick.getActuatorY()));
-                updatesBeforeNextBullet = (int) GameLoop.MAX_UPS / 3;
+                if(shootJoystick.getActuatorX() != 0 || shootJoystick.getActuatorY() != 0){
+                    bulletsList.add(new Bullet(getContext(), player, shootJoystick.getActuatorX(), shootJoystick.getActuatorY()));
+                    updatesBeforeNextBullet = (int) GameLoop.MAX_UPS / 3;
+                }
             }
             else{
                 updatesBeforeNextBullet--;
@@ -308,6 +310,11 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
         gameDisplay.update();
     }
+
+//    private void updateHighScore() {
+//        reference = rootNode.getReference("HighScores");
+//        int currScore = reference.
+//    }
 
     @Override
     public void draw(Canvas canvas){

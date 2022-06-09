@@ -84,10 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
         resumeButton.setOnClickListener(v -> {
             pauseDialog.dismiss();
-//            gameArea.resume();
+            setContentView(forGame);
         });
 
         settingsButton.setOnClickListener(v -> {
+            pauseDialog.dismiss();
             Intent toSettings = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(toSettings);
         });
@@ -166,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // do nothing
+        gameArea.pause();
+        showPausePopUp();
     }
 
     @Override

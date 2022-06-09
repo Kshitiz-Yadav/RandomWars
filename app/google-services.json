@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "135464714942",
+    "project_id": "randomwars-9b11b",
+    "storage_bucket": "randomwars-9b11b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135464714942:android:c6c7807b9793a2990414ef",
+        "android_client_info": {
+          "package_name": "com.example.randomwars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135464714942-dovsrso7ne00glb8lhfslbbhe0f3fa0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfXEq_JC1cpZh4jiUz0JdteUqUW2LCGqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135464714942-dovsrso7ne00glb8lhfslbbhe0f3fa0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

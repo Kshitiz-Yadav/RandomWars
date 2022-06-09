@@ -66,8 +66,16 @@ public class Player extends GameObjects{
         velocityY = moveJoystick.getActuatorY()*MAX_SPEED;
 
         // Update position
-        positionX += velocityX;
-        positionY += velocityY;
+        if((positionX > MIN_POS_X && positionX < MAX_POS_X) ||
+                (positionX < MAX_POS_X && positionX > MIN_POS_X - OFFSET && velocityX > 0) ||
+                (positionX > MIN_POS_X && positionX < MAX_POS_X + OFFSET && velocityX < 0)){
+            positionX += velocityX;
+        }
+        if((positionY > MIN_POS_Y && positionY < MAX_POS_Y) ||
+                (positionY < MAX_POS_Y && positionY > MIN_POS_Y - OFFSET && velocityY > 0) ||
+                (positionY > MIN_POS_Y && positionY < MAX_POS_Y + OFFSET && velocityY < 0)){
+            positionY += velocityY;
+        }
 
         // Update direction
         if (velocityX != 0 || velocityY != 0) {
