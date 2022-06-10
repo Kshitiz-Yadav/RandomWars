@@ -6,14 +6,14 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HighScoreActivity extends AppCompatActivity {
+public class HowToPlayActivity extends AppCompatActivity{
 
     Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_high_score);
+        setContentView(R.layout.activity_how_to_play);
 
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -24,8 +24,6 @@ public class HighScoreActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        MusicPlayer.play();
-
         backButton = findViewById(R.id.backFromHowToPlayButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +31,5 @@ public class HighScoreActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

@@ -42,7 +42,7 @@
         tools:ignore="HardcodedText,UnusedAttribute,UseSwitchCompatOrMaterialXml" />
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/backFromHowToPlayButton"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:layout_marginBottom="75dp"
@@ -105,7 +105,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.209"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintStart_toEndOf="@+id/backFromHowToPlayButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.89" />
 

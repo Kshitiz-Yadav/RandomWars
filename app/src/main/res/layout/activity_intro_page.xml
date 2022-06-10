@@ -7,6 +7,20 @@
     tools:context=".IntroPageActivity"
     android:background="@color/black">
 
+    <TextView
+        android:id="@+id/gameTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toEndOf="@+id/backFromHowToPlayButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.892"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:id="@+id/startButton"
         android:layout_width="140dp"
@@ -21,6 +35,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+    <Button
+        android:id="@+id/howToPlayButton"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="@null"
+        android:text="How to Play"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.781"
         tools:ignore="HardcodedText,UnusedAttribute" />
 
     <Button
@@ -49,14 +79,14 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781"
+        app:layout_constraintVertical_bias="0.916"
         tools:ignore="HardcodedText,UnusedAttribute" />
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/backFromHowToPlayButton"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:background="@drawable/custom_button"
@@ -117,24 +147,24 @@
         android:src="@drawable/enemy2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.209"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toEndOf="@+id/backFromHowToPlayButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="0.653" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/bulletGIF"
         android:layout_width="20dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="6dp"
         android:src="@drawable/bullet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
+        app:layout_constraintHorizontal_bias="0.923"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemyGroup2GIF"
@@ -146,7 +176,7 @@
         app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77" />
+        app:layout_constraintVertical_bias="0.669" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemyGroup1GIF"
@@ -158,7 +188,7 @@
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77" />
+        app:layout_constraintVertical_bias="0.669" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemyGroup3GIF"
@@ -167,10 +197,10 @@
         android:src="@drawable/enemy1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77" />
+        app:layout_constraintVertical_bias="0.669" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

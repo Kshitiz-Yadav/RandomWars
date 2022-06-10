@@ -8,11 +8,26 @@
     tools:context=".HighScoreActivity">
 
     <TextView
+        android:id="@+id/instructions"
+        android:layout_width="474dp"
+        android:layout_height="222dp"
+        android:gravity="center"
+        android:text="Use left and right joysticks to move and shoot respectively.\n\nShoot enemies on their body or head to deplete their health.\n\nKilling enemies gives you points.\n\nYou lose health if an enemy or its bullet hits you.\n\nThe 'First Aid Kit' restores all your health.\n\nThe 'Atom Bomb' kills all the enemies on the screen."
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.677"
+        tools:ignore="HardcodedText" />
+
+    <TextView
         android:id="@+id/howToPlayTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="High Scores"
+        android:text="How To Play"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
         android:textSize="36sp"
@@ -20,31 +35,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176"
+        app:layout_constraintVertical_bias="0.1"
         tools:ignore="HardcodedText,UnusedAttribute" />
-
-    <TextView
-        android:id="@+id/score_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score 1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/backFromHowToPlayButton"
         android:layout_width="140dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="75dp"
         android:backgroundTint="@null"
         android:background="@drawable/custom_button"
         android:text="Back"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.956"
         tools:ignore="HardcodedText,UnusedAttribute" />
 
     <pl.droidsonroids.gif.GifImageView
@@ -54,11 +61,11 @@
         android:layout_marginStart="132dp"
         android:src="@drawable/soldier"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/gameTitle"
+        app:layout_constraintEnd_toStartOf="@+id/howToPlayTitle"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/soldier2GIF"
@@ -69,35 +76,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/gameTitle"
+        app:layout_constraintStart_toEndOf="@+id/howToPlayTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/enemy2GIF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/enemy2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.209"
-        app:layout_constraintStart_toEndOf="@+id/backFromHowToPlayButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
-
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/bulletGIF"
-        android:layout_width="20dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/bullet"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemyGroup2GIF"
@@ -106,10 +87,10 @@
         android:src="@drawable/enemy1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemyGroup1GIF"
@@ -118,10 +99,10 @@
         android:src="@drawable/enemy1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemyGroup3GIF"
@@ -130,8 +111,10 @@
         android:src="@drawable/enemy1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77" />
+        app:layout_constraintVertical_bias="0.833" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

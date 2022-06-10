@@ -78,7 +78,13 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
         spriteSheet = new SpriteSheet(context);
         animator = new MyAnimator(spriteSheet.getPlayerArray());
-        player = new Player(2000,1000, context, moveJoystick, animator);
+        player = new Player(
+                Math.random() * (GameObjects.MAX_POS_X - GameObjects.MIN_POS_X - 2 * GameObjects.OFFSET) + GameObjects.MIN_POS_X + GameObjects.OFFSET,
+                Math.random() * (GameObjects.MAX_POS_Y - GameObjects.MIN_POS_Y - 2 * GameObjects.OFFSET) + GameObjects.MIN_POS_Y + GameObjects.OFFSET,
+                context,
+                moveJoystick,
+                animator
+        );
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);

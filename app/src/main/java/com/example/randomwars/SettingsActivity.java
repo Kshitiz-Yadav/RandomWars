@@ -29,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity{
 
         MusicPlayer.play();
 
-        backToIntroPageButton = findViewById(R.id.backButton);
+        backToIntroPageButton = findViewById(R.id.backFromHowToPlayButton);
         musicSwitch = findViewById(R.id.musicSwitch);
         soundEffectsSwitch = findViewById(R.id.soundSwitch);
 
