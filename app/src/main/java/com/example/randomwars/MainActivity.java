@@ -24,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
     private GameArea gameArea;
     private RelativeLayout forPauseButton;
     private FrameLayout forGame;
+    private MusicPlayer mainMusicPlayer;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState){
-        Log.d("MainActivity: ", "onCreate() called");
+        Log.d("MainActivity: ", "onCreate() MusicPlayerChecker");
         super.onCreate(savedInstanceState);
 
 //        For immersive mode, hiding notification bar, hiding navigation bar and going fullscreen
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
             gameArea.pause();
             showPausePopUp();
         });
+
+        mainMusicPlayer = new MusicPlayer(this, 2);
+        mainMusicPlayer.playMusic();
 
         setContentView(forGame);
     }
@@ -141,25 +145,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        Log.d("MainActivity: ", "onStart() called");
+        Log.d("MainActivity: ", "onStart() MusicPlayerChecker");
+        mainMusicPlayer.playMusic();
         super.onStart();
     }
 
     @Override
     protected void onResume() {
-        Log.d("MainActivity: ", "onResume() called");
+        Log.d("MainActivity: ", "onResume() MusicPlayerChecker");
+        mainMusicPlayer.playMusic();
         super.onResume();
     }
 
     @Override
-    protected void onStop() {
-        Log.d("MainActivity: ", "onStop() called");
-        super.onStop();
-    }
-
-    @Override
     protected void onDestroy() {
-        Log.d("MainActivity: ", "onDestroy() called");
+        Log.d("MainActivity: ", "onDestroy() MusicPlayerChecker");
         Intent toMainMenu = new Intent(MainActivity.this, IntroPageActivity.class);
         startActivity(toMainMenu);
         super.onDestroy();
@@ -173,8 +173,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        Log.d("MainActivity: ", "onPause() called");
+        Log.d("MainActivity: ", "onPause() MusicPlayerChecker");
         gameArea.pause();
+        mainMusicPlayer.pauseMusic();
         super.onPause();
     }
 }

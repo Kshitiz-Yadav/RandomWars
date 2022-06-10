@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toEndOf="@+id/backFromHowToPlayButton"
+        app:layout_constraintStart_toEndOf="@+id/gameOverToExit"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.892"
         tools:ignore="HardcodedText" />
@@ -86,7 +86,7 @@
         tools:ignore="HardcodedText,UnusedAttribute" />
 
     <Button
-        android:id="@+id/backFromHowToPlayButton"
+        android:id="@+id/gameOverToExit"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:background="@drawable/custom_button"
@@ -148,7 +148,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toEndOf="@+id/backFromHowToPlayButton"
+        app:layout_constraintStart_toEndOf="@+id/gameOverToExit"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.653" />
 

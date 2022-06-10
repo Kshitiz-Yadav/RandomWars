@@ -8,7 +8,7 @@
     tools:context=".HighScoreActivity">
 
     <TextView
-        android:id="@+id/instructions"
+        android:id="@+id/scoreDisplay"
         android:layout_width="474dp"
         android:layout_height="222dp"
         android:gravity="center"
@@ -23,7 +23,7 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/howToPlayTitle"
+        android:id="@+id/gameOverTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
@@ -39,7 +39,7 @@
         tools:ignore="HardcodedText,UnusedAttribute" />
 
     <Button
-        android:id="@+id/backFromHowToPlayButton"
+        android:id="@+id/gameOverToExit"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:backgroundTint="@null"
@@ -61,7 +61,7 @@
         android:layout_marginStart="132dp"
         android:src="@drawable/soldier"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/howToPlayTitle"
+        app:layout_constraintEnd_toStartOf="@+id/gameOverTitle"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/howToPlayTitle"
+        app:layout_constraintStart_toEndOf="@+id/gameOverTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 

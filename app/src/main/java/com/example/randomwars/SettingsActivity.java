@@ -1,6 +1,7 @@
 package com.example.randomwars;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -12,9 +13,11 @@ public class SettingsActivity extends AppCompatActivity{
 
     Button backToIntroPageButton;
     Switch musicSwitch, soundEffectsSwitch;
+    MusicPlayer musicPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Settings: ", "onCreate()  MusicPlayerCheck");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -27,9 +30,7 @@ public class SettingsActivity extends AppCompatActivity{
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        MusicPlayer.play();
-
-        backToIntroPageButton = findViewById(R.id.backFromHowToPlayButton);
+        backToIntroPageButton = findViewById(R.id.gameOverToExit);
         musicSwitch = findViewById(R.id.musicSwitch);
         soundEffectsSwitch = findViewById(R.id.soundSwitch);
 
@@ -42,27 +43,39 @@ public class SettingsActivity extends AppCompatActivity{
         musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                MusicPlayer.setMusicOn(musicSwitch.isChecked());
+                MusicPlayer.setMusicState(musicSwitch.isChecked());
             }
         });
+        soundEffectsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SoundPlayer.setSoundState(soundEffectsSwitch.isChecked());
+            }
+        });
+
+        musicPlayer = MusicPlayerHolder.getMusicPlayer();
+        musicPlayer.playMusic();
     }
 
     //    Implementing onDestroy, onPause, and onPostResume to handle music player
     @Override
     protected void onDestroy() {
+        Log.d("Settings: ", "onDestroy()  MusicPlayerCheck");
+//        musicPlayer.pauseMusic();
         super.onDestroy();
-        MusicPlayer.pause();
     }
 
     @Override
     protected void onPause() {
+        Log.d("Settings: ", "onPause()  MusicPlayerCheck");
+        musicPlayer.pauseMusic();
         super.onPause();
-        MusicPlayer.pause();
     }
 
     @Override
     protected void onResume() {
+        Log.d("Settings: ", "onResume()  MusicPlayerCheck");
+        musicPlayer.playMusic();
         super.onResume();
-        MusicPlayer.play();
     }
 }

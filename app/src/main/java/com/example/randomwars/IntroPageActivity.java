@@ -19,9 +19,11 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
     Button startButton, settingsButton, exitButton, highScoreButton, howToPlayButton;
     Dialog dialog;
     Button confirmExit, denyExit;
+    MusicPlayer musicPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Intro: ", "onCreate()  MusicPlayerCheck");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_page);
 
@@ -34,19 +36,17 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        new MusicPlayer(this.getApplicationContext());
-        MusicPlayer.play();
 
         String[] gameTips = {
                 "You die sooner when closer to Lava",
                 "Appreciate the map",
                 "Like the music?",
-                "Good Luck!!",
-                "Get them from all sides",
+                "Do you have a better game name?",
+                "An enemy can spawn real close",
                 "Running away makes it worse",
-                "Yes you can run on water, it's shallow",
+                "Yes you can run on the water, it's shallow",
                 "I bet you'll get a high score",
-                "Did you study before coming here?",
+                "Did you do your homework?",
                 "Let's gooooooo!!!"
         };
 
@@ -55,7 +55,7 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
 
         startButton = findViewById(R.id.startButton);
         settingsButton = findViewById(R.id.settingButton);
-        exitButton = findViewById(R.id.backFromHowToPlayButton);
+        exitButton = findViewById(R.id.gameOverToExit);
         highScoreButton = findViewById(R.id.viewHighScoreButton);
         howToPlayButton = findViewById(R.id.howToPlayButton);
 
@@ -64,6 +64,10 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
         exitButton.setOnClickListener(this);
         highScoreButton.setOnClickListener(this);
         howToPlayButton.setOnClickListener(this);
+
+        musicPlayer = new MusicPlayer(this, 1);
+        MusicPlayerHolder.setMusicPlayer(musicPlayer);
+        musicPlayer.playMusic();
     }
 
 //    Implementing onClick Functionality for all buttons
@@ -88,7 +92,7 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
                 Intent toSettings = new Intent(IntroPageActivity.this, SettingsActivity.class);
                 startActivity(toSettings);
                 break;
-            case R.id.backFromHowToPlayButton:
+            case R.id.gameOverToExit:
                 confirmExitDialogBox();
                 break;
         }
@@ -123,24 +127,32 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
 //    Implementing onDestroy, onPause, and onPostResume to handle music player
     @Override
     protected void onDestroy() {
+        Log.d("Intro: ", "onDestroy()  MusicPlayerCheck");
         super.onDestroy();
-        MusicPlayer.stop();
     }
 
     @Override
     protected void onPause() {
+        Log.d("Intro: ", "onPause()  MusicPlayerCheck");
+        musicPlayer.pauseMusic();
         super.onPause();
-        MusicPlayer.pause();
     }
 
     @Override
     protected void onResume() {
+        Log.d("Intro: ", "onResume()  MusicPlayerCheck");
+        musicPlayer.playMusic();
         super.onResume();
-        Log.d(TAG, "onPostResume: main chala");
-        MusicPlayer.play();
     }
 
-//    Implementing onBackPress so that app doesn't go to splash screen
+    @Override
+    protected void onPostResume() {
+        Log.d("Intro: ", "onPostResume()  MusicPlayerCheck");
+        musicPlayer.playMusic();
+        super.onPostResume();
+    }
+
+    //    Implementing onBackPress so that app doesn't go to splash screen
     @Override
     public void onBackPressed() {
         finishAffinity();

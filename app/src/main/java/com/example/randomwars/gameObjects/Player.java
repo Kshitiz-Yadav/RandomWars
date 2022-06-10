@@ -35,13 +35,13 @@ public class Player extends GameObjects{
                 && (object.positionY > positionY - SpriteSheet.SPRITE_HEIGHT_PIXELS && object.positionY < positionY + SpriteSheet.SPRITE_HEIGHT_PIXELS)){
             switch(object.getClass().getName()){
                 case "com.example.randomwars.gameObjects.SoldierEnemy":
-                    healthPoints -= 2;
+                    healthPoints = healthPoints > 2 ? healthPoints - 2 : 0;
                     break;
                 case "com.example.randomwars.gameObjects.TankEnemy":
-                    healthPoints -= 5;
+                    healthPoints = healthPoints > 5 ? healthPoints - 5 : 0;
                     break;
                 case "com.example.randomwars.gameObjects.Bullet":
-                    healthPoints -= 1;
+                    healthPoints = healthPoints > 1 ? healthPoints - 1 : 0;
                     break;
                 case "com.example.randomwars.gameObjects.FirstAid":
                     healthPoints = MAX_HEALTH_POINTS;

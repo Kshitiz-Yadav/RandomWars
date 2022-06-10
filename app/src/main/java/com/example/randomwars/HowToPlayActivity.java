@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HowToPlayActivity extends AppCompatActivity{
 
     Button backButton;
+    MusicPlayer musicPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,24 @@ public class HowToPlayActivity extends AppCompatActivity{
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        backButton = findViewById(R.id.backFromHowToPlayButton);
+        backButton = findViewById(R.id.gameOverToExit);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        musicPlayer.pauseMusic();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        musicPlayer.playMusic();
+        super.onResume();
     }
 }

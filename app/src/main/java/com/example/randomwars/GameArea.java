@@ -2,6 +2,7 @@ package com.example.randomwars;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
@@ -20,7 +21,6 @@ import com.example.randomwars.gameObjects.GameObjects;
 import com.example.randomwars.gameObjects.Player;
 import com.example.randomwars.gameObjects.SoldierEnemy;
 import com.example.randomwars.gameObjects.TankEnemy;
-import com.example.randomwars.gamePanel.GameOver;
 import com.example.randomwars.gamePanel.Joystick;
 import com.example.randomwars.gamePanel.Performance;
 import com.example.randomwars.map.TileMap;
@@ -32,7 +32,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
-
     private Player player;
     private TileMap tileMap;
     private SpriteSheet spriteSheet;
@@ -52,9 +51,10 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     private List<Bullet> tankBulletList = new ArrayList<Bullet>();
     private List<FirstAid> firstAidList = new ArrayList<FirstAid>();
     private List<AtomBomb> atomBombList = new ArrayList<AtomBomb>();
-    private GameOver gameOver;
     private SurfaceHolder surfaceHolder;
     private Context context;
+    private SoundPlayer soundPlayer;
+//    private MusicPlayer musicPlayer;
 //    private FirebaseDatabase rootNode;
 //    private DatabaseReference reference;
 
@@ -92,7 +92,10 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
         tileMap = new TileMap(spriteSheet);
 
-        gameOver = new GameOver(context);
+        soundPlayer = new SoundPlayer(context);
+
+//        musicPlayer = new MusicPlayer(context, 2);
+//        musicPlayer.playMusic();
 
 //        rootNode = FirebaseDatabase.getInstance();
 
@@ -158,6 +161,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
             gameLoop = new GameLoop(this, surfaceHolder);
         }
         gameLoop.startLoop();
+
     }
 
     @Override
@@ -173,7 +177,13 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
 
         if(player.getHealthPoint() <= 0){
-            ((Activity)context).finish();
+            soundPlayer.playSound(9);
+
+            Intent toGameOver = new Intent((context), GameOverActivity.class);
+            toGameOver.putExtra("Score", score);
+            toGameOver.putExtra("Level", level);
+            ((Activity)context).startActivity(toGameOver);
+//            ((Activity)context).finish();
         }
 
         moveJoystick.update();
@@ -190,6 +200,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                 if(shootJoystick.getActuatorX() != 0 || shootJoystick.getActuatorY() != 0){
                     bulletsList.add(new Bullet(getContext(), player, shootJoystick.getActuatorX(), shootJoystick.getActuatorY()));
                     updatesBeforeNextBullet = (int) GameLoop.MAX_UPS / 3;
+                    soundPlayer.playSound(1);
                 }
             }
             else{
@@ -230,6 +241,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                         (player.getPositionY() - tankEnemy.getPositionY()) / (GameObjects.getDistanceBetween(player, tankEnemy) * TankEnemy.bulletSpeedPoison)
                         )
                 );
+                soundPlayer.playSound(2);
             }
         }
 
@@ -242,11 +254,13 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                 if (soldierEnemy.isDead(bullet)) {
                     iteratorBullets.remove();
                     iteratorSoldierEnemy.remove();
+                    soundPlayer.playSound(4);
                     score += KILL_SOLDIER_ENEMY_POINTS;
                     break;
                 }
             }
             if(player.isHit(soldierEnemy)){
+                soundPlayer.playSound(3);
                 iteratorSoldierEnemy.remove();
             }
         }
@@ -260,11 +274,13 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                 if (tankEnemy.isDead(bullet)) {
                     iteratorBullets.remove();
                     iteratorTankEnemy.remove();
+                    soundPlayer.playSound(5);
                     score += KILL_TANK_ENEMY_POINTS;
                     break;
                 }
             }
             if(player.isHit(tankEnemy)){
+                soundPlayer.playSound(3);
                 iteratorTankEnemy.remove();
             }
         }
@@ -284,6 +300,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                 tankBulletIterator.remove();
             }
             if(player.isHit(bullet)){
+                soundPlayer.playSound(3);
                 tankBulletIterator.remove();
             }
         }
@@ -296,6 +313,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
             }
             if(player.isHit(firstAid)){
                 firstAidIterator.remove();
+                soundPlayer.playSound(6);
             }
         }
 
@@ -307,6 +325,7 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
             }
             if(player.isHit(atomBomb)){
                 atomBombIterator.remove();
+                soundPlayer.playSound(7);
                 score += soldierEnemyList.size() * KILL_SOLDIER_ENEMY_POINTS + tankEnemyList.size() * KILL_TANK_ENEMY_POINTS;
                 soldierEnemyList.clear();
                 tankEnemyList.clear();
@@ -367,13 +386,11 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawText("LEVEL:  " + levelString, 1600, 100, paint);
         canvas.drawText("SCORE: " + scoreString, 1800, 100, paint);
 
-        if(player.getHealthPoint() <= 0){
-            gameOver.draw(canvas);
-        }
     }
 
 
     private void incrementLevel() {
+        soundPlayer.playSound(8);
         SoldierEnemy.incrementLevel();
         TankEnemy.incrementLevel();
     }

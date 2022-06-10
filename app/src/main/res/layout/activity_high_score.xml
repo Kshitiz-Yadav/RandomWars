@@ -8,7 +8,7 @@
     tools:context=".HighScoreActivity">
 
     <TextView
-        android:id="@+id/howToPlayTitle"
+        android:id="@+id/gameOverTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/backFromHowToPlayButton"
+        android:id="@+id/gameOverToExit"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:layout_marginBottom="75dp"
@@ -81,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.209"
-        app:layout_constraintStart_toEndOf="@+id/backFromHowToPlayButton"
+        app:layout_constraintStart_toEndOf="@+id/gameOverToExit"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.89" />
 

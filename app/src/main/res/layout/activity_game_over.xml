@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".HighScoreActivity">
+
+
+    <TextView
+        android:id="@+id/scoreDisplay"
+        android:layout_width="112dp"
+        android:layout_height="59dp"
+        android:gravity="center"
+        android:text="Score"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.394"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/levelDisplay"
+        android:layout_width="112dp"
+        android:layout_height="59dp"
+        android:gravity="center"
+        android:text="Level"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.562"
+        tools:ignore="HardcodedText" />
+
+
+    <TextView
+        android:id="@+id/gameOverTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Game Over"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.184"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+    <Button
+        android:id="@+id/gameOverToExit"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="@null"
+        android:text="Exit"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.788"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.873"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+    <Button
+        android:id="@+id/gameOverToRestart"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="@null"
+        android:text="Play Again"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.873"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/soldier1GIF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:src="@drawable/soldier"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/gameOverTitle"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.106" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/soldier2GIF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:src="@drawable/soldier"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/gameOverTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.106" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/enemyGroup1GIF"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/enemy1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.097"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.589" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/enemyGroup2GIF"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/enemy1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.589" />
+
+    <Button
+        android:id="@+id/gameOverToMainMenu"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="@null"
+        android:text="Main Menu"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.873"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/enemyGroup3GIF"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/enemy1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.855"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.589" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,10 +27,6 @@ public class GameLoop extends Thread{
         start();
     }
 
-//    public void resumeLoop(){
-//        isRunning = true;
-//    }
-
     public void stopLoop(){
         Log.d("GameLoop: ", "stopLoop() called");
         isRunning = false;
