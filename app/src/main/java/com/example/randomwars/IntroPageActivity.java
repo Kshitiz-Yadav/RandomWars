@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class IntroPageActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "IntroPageActivity";
-    Button startButton, settingsButton, exitButton, howToPlayButton;
+    Button startButton, settingsButton, highscoreButton, exitButton, howToPlayButton;
     Dialog dialog;
     Button confirmExit, denyExit;
     MusicPlayer musicPlayer;
@@ -54,6 +54,7 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
         gameTip.setText(String.format("Tip: %s", gameTips[(int) (Math.random() * 9)]));
 
         startButton = findViewById(R.id.startButton);
+        highscoreButton = findViewById(R.id.highScoreButton);
         settingsButton = findViewById(R.id.settingButton);
         exitButton = findViewById(R.id.settingsToMainMenuButton);
         howToPlayButton = findViewById(R.id.howToPlayButton);
@@ -62,6 +63,7 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
         settingsButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
         howToPlayButton.setOnClickListener(this);
+        highscoreButton.setOnClickListener(this);
 
         musicPlayer = new MusicPlayer(this, 1);
         MusicPlayerHolder.setMusicPlayer(musicPlayer);
@@ -81,6 +83,10 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
             case R.id.howToPlayButton:
                 Intent toHowToPlay = new Intent(IntroPageActivity.this, HowToPlayActivity.class);
                 startActivity(toHowToPlay);
+                break;
+            case R.id.highScoreButton:
+                Intent toHighScores = new Intent(IntroPageActivity.this, HighScoreActivity.class);
+                startActivity(toHighScores);
                 break;
             case R.id.settingButton:
                 Intent toSettings = new Intent(IntroPageActivity.this, SettingsActivity.class);

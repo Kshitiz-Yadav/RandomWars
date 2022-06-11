@@ -13,8 +13,8 @@ public class GameLoop extends Thread{
     private SurfaceHolder surfaceHolder;
 
     private boolean isRunning = false;
-    private double averageUPS;
-    private double averageFPS;
+    private static double averageUPS;
+    private static double averageFPS;
 
     public GameLoop(GameArea gameArea, SurfaceHolder surfaceHolder) {
         this.gameArea = gameArea;
@@ -38,11 +38,11 @@ public class GameLoop extends Thread{
         }
     }
 
-    public double getAverageUPS(){
+    public static double getAverageUPS(){
         return averageUPS;
     }
 
-    public double getAverageFPS(){
+    public static double getAverageFPS(){
         return averageFPS;
     }
 

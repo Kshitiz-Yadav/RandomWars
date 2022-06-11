@@ -1,6 +1,7 @@
 package com.example.randomwars;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,23 +10,15 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     Button backToIntroPageButton;
     Switch musicSwitch, soundEffectsSwitch;
-    boolean musicState = true, soundState = true;
+    boolean musicState, soundState;
     String playerName;
     MusicPlayer musicPlayer;
-    DatabaseReference userDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +40,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         soundEffectsSwitch = findViewById(R.id.soundSwitch);
         EditText playerNameText = findViewById(R.id.playerNameText);
 
-        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences");
-        userDB.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    playerNameText.setText(snapshot.child("PlayerName").getValue(String.class));
-                    musicSwitch.setChecked(snapshot.child("Music").getValue(Boolean.class));
-                    soundEffectsSwitch.setChecked(snapshot.child("Sound").getValue(Boolean.class));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        SharedPreferences userPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+        playerNameText.setText(userPreferences.getString("PlayerName","Player"));
+        musicState = userPreferences.getBoolean("Music", true);
+        soundState = userPreferences.getBoolean("Sound", true);
+        soundEffectsSwitch.setChecked(soundState);
+        musicSwitch.setChecked(musicState);
+        MusicPlayer.setMusicState(musicState);
 
         musicSwitch.setOnCheckedChangeListener(this);
         soundEffectsSwitch.setOnCheckedChangeListener(this);
@@ -68,21 +54,18 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         musicPlayer = MusicPlayerHolder.getMusicPlayer();
         musicPlayer.playMusic();
-
     }
 
     @Override
     public void onClick(View v) {
         playerName = ((EditText) findViewById(R.id.playerNameText)).getText().toString();
 
-        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences").child("PlayerName");
-        userDB.setValue(playerName, null);
-
-        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences").child("Music");
-        userDB.setValue(musicState, null);
-
-        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences").child("Sound");
-        userDB.setValue(soundState, null);
+        SharedPreferences userPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor upEditor = userPreferences.edit();
+        upEditor.putString("PlayerName", playerName);
+        upEditor.putBoolean("Music", musicState);
+        upEditor.putBoolean("Sound", soundState);
+        upEditor.apply();
 
         finish();
     }

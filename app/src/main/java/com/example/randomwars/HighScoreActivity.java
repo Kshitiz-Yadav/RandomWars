@@ -1,8 +1,10 @@
 package com.example.randomwars;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +37,21 @@ public class HighScoreActivity extends AppCompatActivity {
 
         musicPlayer = MusicPlayerHolder.getMusicPlayer();
         musicPlayer.playMusic();
+
+        SharedPreferences highScores = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+
+        ((TextView) findViewById(R.id.Player1)).setText(highScores.getString("P1", "Player"));
+        ((TextView) findViewById(R.id.Player2)).setText(highScores.getString("P2", "Player"));
+        ((TextView) findViewById(R.id.Player3)).setText(highScores.getString("P3", "Player"));
+        ((TextView) findViewById(R.id.Player4)).setText(highScores.getString("P4", "Player"));
+        ((TextView) findViewById(R.id.Player5)).setText(highScores.getString("P5", "Player"));
+
+        ((TextView) findViewById(R.id.Score1)).setText(String.format("%s",highScores.getInt("S1", 0)));
+        ((TextView) findViewById(R.id.Score2)).setText(String.format("%s",highScores.getInt("S2", 0)));
+        ((TextView) findViewById(R.id.Score3)).setText(String.format("%s",highScores.getInt("S3", 0)));
+        ((TextView) findViewById(R.id.Score4)).setText(String.format("%s",highScores.getInt("S4", 0)));
+        ((TextView) findViewById(R.id.Score5)).setText(String.format("%s",highScores.getInt("S5", 0)));
+
     }
 
     @Override

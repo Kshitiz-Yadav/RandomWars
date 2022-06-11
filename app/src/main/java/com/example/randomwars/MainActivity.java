@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 //    For showing paused menu
     private void showPausePopUp() {
         pauseDialog = new Dialog(this);
+        pauseDialog.setCancelable(false);
+//        pauseDialog.setCanceledOnTouchOutside(false);
         pauseDialog.setContentView(R.layout.pause_menu);
 
         resumeButton = pauseDialog.findViewById(R.id.resumeButton);

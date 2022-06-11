@@ -1,6 +1,7 @@
 package com.example.randomwars;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
@@ -11,7 +12,7 @@ public class SoundPlayer {
     SoundPool soundPool;
     HashMap<Integer,Integer> soundMap;
     Context context;
-    public static boolean soundState = true;
+    public static boolean soundState;
 
     private final int PLAYER_BULLET = 1;
     private final int TANK_BULLET = 2;
@@ -39,6 +40,9 @@ public class SoundPlayer {
             soundMap.put(LEVEL_UP, soundPool.load(context, R.raw.level_up, 1));
             soundMap.put(GAME_OVER, soundPool.load(context, R.raw.game_over, 1));
         }
+
+        SharedPreferences userPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        soundState = userPreferences.getBoolean("Sound", true);
     }
 
     public static void setSoundState(boolean state){

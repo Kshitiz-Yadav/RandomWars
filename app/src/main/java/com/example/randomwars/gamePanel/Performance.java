@@ -22,7 +22,7 @@ public class Performance {
 
 
     private void drawFPS(Canvas canvas) {
-        String averageFPS = Double.toString(gameLoop.getAverageFPS());
+        String averageFPS = Double.toString(GameLoop.getAverageFPS());
         Paint paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.white);
         paint.setColor(color);
@@ -31,7 +31,7 @@ public class Performance {
     }
 
     private void drawUPS(Canvas canvas) {
-        String averageFPS = Double.toString(gameLoop.getAverageUPS());
+        String averageFPS = Double.toString(GameLoop.getAverageUPS());
         Paint paint = new Paint();
         int color = ContextCompat.getColor(context, R.color.white);
         paint.setColor(color);

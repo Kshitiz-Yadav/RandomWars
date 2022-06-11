@@ -1,18 +1,22 @@
 package com.example.randomwars;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 
 public class MusicPlayer {
 
     public static MediaPlayer mediaPlayer;
     Context context;
-    public static boolean musicState = true;
+    public static boolean musicState;
 
     public MusicPlayer(Context context, int music){
         mediaPlayer = new MediaPlayer();
         this.context = context;
-
+        
+        SharedPreferences userPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        musicState = userPreferences.getBoolean("Music", true);
+        
         switch (music){
             case 1:
                 mediaPlayer = MediaPlayer.create(context, R.raw.intro_page_music);
@@ -28,17 +32,18 @@ public class MusicPlayer {
 
     public static void setMusicState(boolean state){
         musicState = state;
-        if(mediaPlayer.isPlaying() && !musicState){
-            mediaPlayer.pause();
-        }
-        else if(!mediaPlayer.isPlaying() && musicState){
+        if(musicState){
             mediaPlayer.start();
+        }
+        else{
+            mediaPlayer.pause();
         }
     }
 
     public void playMusic() {
-        if (musicState) {
-            mediaPlayer.start();
+        mediaPlayer.start();
+        if (!musicState) {
+            mediaPlayer.pause();
         }
     }
 

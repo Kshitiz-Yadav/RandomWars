@@ -40,6 +40,20 @@
 
 
     <TextView
+        android:id="@+id/isHighscore"
+        android:layout_width="285dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.709"
+        tools:ignore="HardcodedText" />
+
+    <TextView
         android:id="@+id/gameOverTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

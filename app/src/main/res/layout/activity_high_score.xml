@@ -20,18 +20,108 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176"
+        app:layout_constraintVertical_bias="0.125"
         tools:ignore="HardcodedText,UnusedAttribute" />
 
-    <TextView
-        android:id="@+id/score_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score 1"
+    <TableLayout
+        android:layout_width="324dp"
+        android:layout_height="101dp"
+        android:stretchColumns="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText">
+
+        <TableRow>
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="1." />
+
+            <TextView
+                android:id="@+id/Player1"
+                android:gravity="center"
+                android:text="Player1" />
+
+            <TextView
+                android:id="@+id/Score1"
+                android:layout_gravity="center"
+                android:text="Score1" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="2." />
+
+            <TextView
+                android:id="@+id/Player2"
+                android:gravity="center"
+                android:text="Player2" />
+
+            <TextView
+                android:id="@+id/Score2"
+                android:layout_gravity="center"
+                android:text="Score2" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="3." />
+
+            <TextView
+                android:id="@+id/Player3"
+                android:gravity="center"
+                android:text="Player3" />
+
+            <TextView
+                android:id="@+id/Score3"
+                android:layout_gravity="center"
+                android:text="Score3" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="4." />
+
+            <TextView
+                android:id="@+id/Player4"
+                android:gravity="center"
+                android:text="Player4" />
+
+            <TextView
+                android:id="@+id/Score4"
+                android:layout_gravity="center"
+                android:text="Score4" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="5." />
+
+            <TextView
+                android:id="@+id/Player5"
+                android:gravity="center"
+                android:text="Player5" />
+
+            <TextView
+                android:id="@+id/Score5"
+                android:layout_gravity="center"
+                android:text="Score5" />
+
+        </TableRow>
+    </TableLayout>
 
     <Button
         android:id="@+id/settingsToMainMenuButton"
@@ -58,20 +148,20 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.056" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/soldier2GIF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="132dp"
         android:src="@drawable/soldier"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/gameTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.056" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemy2GIF"
