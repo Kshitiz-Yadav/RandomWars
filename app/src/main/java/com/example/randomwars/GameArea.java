@@ -72,9 +72,12 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
 
         gameLoop = new GameLoop(this, surfaceHolder);
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
         performance = new Performance(gameLoop, context);
-        moveJoystick = new Joystick(350, 750, 150, 100);
-        shootJoystick = new Joystick(1850, 750, 150, 100);
+        moveJoystick = new Joystick((int)(displayMetrics.widthPixels * 0.15), (int)(displayMetrics.heightPixels * 0.70), (int)Math.sqrt(displayMetrics.widthPixels * displayMetrics.heightPixels * 0.014), (int)Math.sqrt(displayMetrics.widthPixels * displayMetrics.heightPixels * 0.0040));
+        shootJoystick = new Joystick((int)(displayMetrics.widthPixels * 0.83), (int)(displayMetrics.heightPixels * 0.70), (int)Math.sqrt(displayMetrics.widthPixels * displayMetrics.heightPixels * 0.014), (int)Math.sqrt(displayMetrics.widthPixels * displayMetrics.heightPixels * 0.0040));
 
         spriteSheet = new SpriteSheet(context);
         animator = new MyAnimator(spriteSheet.getPlayerArray());
@@ -86,8 +89,6 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
                 animator
         );
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player);
 
         tileMap = new TileMap(spriteSheet);
