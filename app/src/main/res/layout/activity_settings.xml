@@ -8,6 +8,37 @@
     android:background="@color/black">
 
 
+    <EditText
+        android:id="@+id/playerNameText"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Player"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.651"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.362"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/enterPlayerName"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:gravity="bottom"
+        android:text="Player Name: "
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.337"
+        tools:ignore="HardcodedText" />
+
     <Switch
         android:id="@+id/musicSwitch"
         android:layout_width="175dp"
@@ -42,7 +73,7 @@
         tools:ignore="HardcodedText,UnusedAttribute,UseSwitchCompatOrMaterialXml" />
 
     <Button
-        android:id="@+id/gameOverToExit"
+        android:id="@+id/settingsToMainMenuButton"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:layout_marginBottom="75dp"
@@ -59,17 +90,16 @@
         android:id="@+id/settingsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Settings"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/white"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/musicSwitch"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.13"
         tools:ignore="HardcodedText,UnusedAttribute" />
 
     <pl.droidsonroids.gif.GifImageView
@@ -83,7 +113,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.028" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/soldier2GIF"
@@ -92,10 +122,10 @@
         android:src="@drawable/soldier"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toEndOf="@+id/settingsTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.028" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/enemy2GIF"
@@ -105,7 +135,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.209"
-        app:layout_constraintStart_toEndOf="@+id/gameOverToExit"
+        app:layout_constraintStart_toEndOf="@+id/settingsToMainMenuButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.89" />
 

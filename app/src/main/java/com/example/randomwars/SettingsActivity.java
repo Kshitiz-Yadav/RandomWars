@@ -1,19 +1,31 @@
 package com.example.randomwars;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingsActivity extends AppCompatActivity{
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     Button backToIntroPageButton;
     Switch musicSwitch, soundEffectsSwitch;
+    boolean musicState = true, soundState = true;
+    String playerName;
     MusicPlayer musicPlayer;
+    DatabaseReference userDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,34 +42,68 @@ public class SettingsActivity extends AppCompatActivity{
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        backToIntroPageButton = findViewById(R.id.gameOverToExit);
+        backToIntroPageButton = findViewById(R.id.settingsToMainMenuButton);
         musicSwitch = findViewById(R.id.musicSwitch);
         soundEffectsSwitch = findViewById(R.id.soundSwitch);
+        EditText playerNameText = findViewById(R.id.playerNameText);
 
-        backToIntroPageButton.setOnClickListener(new View.OnClickListener() {
+        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences");
+        userDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    playerNameText.setText(snapshot.child("PlayerName").getValue(String.class));
+                    musicSwitch.setChecked(snapshot.child("Music").getValue(Boolean.class));
+                    soundEffectsSwitch.setChecked(snapshot.child("Sound").getValue(Boolean.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-        musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                MusicPlayer.setMusicState(musicSwitch.isChecked());
-            }
-        });
-        soundEffectsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SoundPlayer.setSoundState(soundEffectsSwitch.isChecked());
-            }
-        });
+
+        musicSwitch.setOnCheckedChangeListener(this);
+        soundEffectsSwitch.setOnCheckedChangeListener(this);
+        backToIntroPageButton.setOnClickListener(this);
 
         musicPlayer = MusicPlayerHolder.getMusicPlayer();
         musicPlayer.playMusic();
+
     }
 
-    //    Implementing onDestroy, onPause, and onPostResume to handle music player
+    @Override
+    public void onClick(View v) {
+        playerName = ((EditText) findViewById(R.id.playerNameText)).getText().toString();
+
+        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences").child("PlayerName");
+        userDB.setValue(playerName, null);
+
+        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences").child("Music");
+        userDB.setValue(musicState, null);
+
+        userDB = FirebaseDatabase.getInstance().getReference("UserPreferences").child("Sound");
+        userDB.setValue(soundState, null);
+
+        finish();
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()){
+            case R.id.musicSwitch:
+                musicState = musicSwitch.isChecked();
+                MusicPlayer.setMusicState(musicState);
+                break;
+            case R.id.soundSwitch:
+                soundState = soundEffectsSwitch.isChecked();
+                SoundPlayer.setSoundState(soundState);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     protected void onDestroy() {
         Log.d("Settings: ", "onDestroy()  MusicPlayerCheck");

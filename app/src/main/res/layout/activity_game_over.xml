@@ -56,7 +56,7 @@
         tools:ignore="HardcodedText,UnusedAttribute" />
 
     <Button
-        android:id="@+id/gameOverToExit"
+        android:id="@+id/settingsToMainMenuButton"
         android:layout_width="140dp"
         android:layout_height="40dp"
         android:background="@drawable/custom_button"

@@ -47,7 +47,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
 
         toMainMenu = findViewById(R.id.gameOverToMainMenu);
         restart = findViewById(R.id.gameOverToRestart);
-        exit = findViewById(R.id.gameOverToExit);
+        exit = findViewById(R.id.settingsToMainMenuButton);
 
         toMainMenu.setOnClickListener(this);
         restart.setOnClickListener(this);
@@ -56,6 +56,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         gameOverMusicPlayer = new MusicPlayer(getApplicationContext(), 3);
         gameOverMusicPlayer.playMusic();
     }
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -70,7 +71,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
                 Intent toMainMenu = new Intent(GameOverActivity.this, IntroPageActivity.class);
                 startActivity(toMainMenu);
                 break;
-            case R.id.gameOverToExit:
+            case R.id.settingsToMainMenuButton:
                 confirmExitPopUp();
                 break;
             default:

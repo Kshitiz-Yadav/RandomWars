@@ -55,7 +55,7 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
 
         startButton = findViewById(R.id.startButton);
         settingsButton = findViewById(R.id.settingButton);
-        exitButton = findViewById(R.id.gameOverToExit);
+        exitButton = findViewById(R.id.settingsToMainMenuButton);
         highScoreButton = findViewById(R.id.viewHighScoreButton);
         howToPlayButton = findViewById(R.id.howToPlayButton);
 
@@ -92,7 +92,7 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
                 Intent toSettings = new Intent(IntroPageActivity.this, SettingsActivity.class);
                 startActivity(toSettings);
                 break;
-            case R.id.gameOverToExit:
+            case R.id.settingsToMainMenuButton:
                 confirmExitDialogBox();
                 break;
         }

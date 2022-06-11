@@ -25,7 +25,7 @@ public class HighScoreActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        backButton = findViewById(R.id.gameOverToExit);
+        backButton = findViewById(R.id.settingsToMainMenuButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
