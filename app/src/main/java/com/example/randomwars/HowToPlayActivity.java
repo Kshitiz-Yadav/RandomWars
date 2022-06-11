@@ -32,6 +32,10 @@ public class HowToPlayActivity extends AppCompatActivity{
                 finish();
             }
         });
+
+
+        musicPlayer = MusicPlayerHolder.getMusicPlayer();
+        musicPlayer.playMusic();
     }
 
     @Override

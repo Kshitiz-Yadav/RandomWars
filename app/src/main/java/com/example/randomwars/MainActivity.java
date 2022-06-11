@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.d("MainActivity: ", "onDestroy() MusicPlayerChecker");
-        Intent toMainMenu = new Intent(MainActivity.this, IntroPageActivity.class);
-        startActivity(toMainMenu);
+//        Intent toMainMenu = new Intent(MainActivity.this, IntroPageActivity.class);
+//        startActivity(toMainMenu);
         super.onDestroy();
     }
 

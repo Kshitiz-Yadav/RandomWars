@@ -72,8 +72,19 @@ public class TankEnemy extends GameObjects{
         SPEED_PIXELS_PER_SECOND += 2;
         MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
         if(bulletSpeedPoison > 0.5){
-            bulletSpeedPoison -= 0.1;
+            bulletSpeedPoison -= 0.2;
         }
+    }
+
+    public static void resetLevel(){
+        SPAWNS_PER_MINUTE = 2;
+        SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
+        UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
+        remainingUpdates = UPDATES_PER_SPAWN;
+
+        SPEED_PIXELS_PER_SECOND = 100.0;
+        MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
+        bulletSpeedPoison = 2;
     }
 
     @Override

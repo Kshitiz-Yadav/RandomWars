@@ -70,6 +70,16 @@ public class SoldierEnemy extends GameObjects{
         MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
     }
 
+    public static void resetLevel(){
+        SPAWNS_PER_MINUTE = 10;
+        SPAWNS_PER_SECOND = SPAWNS_PER_MINUTE / 60.0;
+        UPDATES_PER_SPAWN = GameLoop.MAX_UPS / SPAWNS_PER_SECOND;
+        remainingUpdates = UPDATES_PER_SPAWN;
+
+        SPEED_PIXELS_PER_SECOND = 250.0;
+        MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
+    }
+
     public boolean isDead(Bullet bullet){
         if((bullet.positionX > positionX - bullet.bullet.getWidth() && bullet.positionX < positionX + enemySpriteArray[0].getWidth())
             && (bullet.positionY > positionY - bullet.bullet.getHeight() && bullet.positionY < positionY + enemySpriteArray[0].getHeight())

@@ -179,11 +179,14 @@ public class GameArea extends SurfaceView implements SurfaceHolder.Callback {
         if(player.getHealthPoint() <= 0){
             soundPlayer.playSound(9);
 
+            SoldierEnemy.resetLevel();
+            TankEnemy.resetLevel();
+
             Intent toGameOver = new Intent((context), GameOverActivity.class);
             toGameOver.putExtra("Score", score);
             toGameOver.putExtra("Level", level);
             ((Activity)context).startActivity(toGameOver);
-//            ((Activity)context).finish();
+            ((Activity)context).finish();
         }
 
         moveJoystick.update();

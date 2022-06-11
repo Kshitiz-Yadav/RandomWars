@@ -10,27 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RandomWars">
         <activity android:name=".GameOverActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".HowToPlayActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".HighScoreActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SettingsActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".IntroPageActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 

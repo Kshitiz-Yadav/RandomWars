@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class IntroPageActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "IntroPageActivity";
-    Button startButton, settingsButton, exitButton, highScoreButton, howToPlayButton;
+    Button startButton, settingsButton, exitButton, howToPlayButton;
     Dialog dialog;
     Button confirmExit, denyExit;
     MusicPlayer musicPlayer;
@@ -56,13 +56,11 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
         startButton = findViewById(R.id.startButton);
         settingsButton = findViewById(R.id.settingButton);
         exitButton = findViewById(R.id.settingsToMainMenuButton);
-        highScoreButton = findViewById(R.id.viewHighScoreButton);
         howToPlayButton = findViewById(R.id.howToPlayButton);
 
         startButton.setOnClickListener(this);
         settingsButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
-        highScoreButton.setOnClickListener(this);
         howToPlayButton.setOnClickListener(this);
 
         musicPlayer = new MusicPlayer(this, 1);
@@ -79,10 +77,6 @@ public class IntroPageActivity extends AppCompatActivity implements View.OnClick
                 Intent toMain = new Intent(IntroPageActivity.this, MainActivity.class);
                 startActivity(toMain);
                 finish();
-                break;
-            case R.id.viewHighScoreButton:
-                Intent toHighScores = new Intent(IntroPageActivity.this, HighScoreActivity.class);
-                startActivity(toHighScores);
                 break;
             case R.id.howToPlayButton:
                 Intent toHowToPlay = new Intent(IntroPageActivity.this, HowToPlayActivity.class);
