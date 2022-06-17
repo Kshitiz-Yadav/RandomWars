@@ -1,13 +1,15 @@
+// Class to define the layout of the map in the form of a 2D array
+
 package com.example.randomwars.map;
 
 public class TileLayout {
-
     public static final int TILE_WIDTH_PIXELS = 32*4;
     public static final int TILE_HEIGHT_PIXELS = 32*4;
     public static final int NUMBER_OF_ROW_TILES = 100;
     public static final int NUMBER_OF_COLUMN_TILES = 100;
-
     int[][] tileLayout;
+
+    // Defining the layout
     public TileLayout(){
         tileLayout = new int[][]{
                 {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
@@ -113,7 +115,6 @@ public class TileLayout {
         };
     }
 
-    public int[][] getTileLayout(){
-        return tileLayout;
-    }
+    // Method to get the 2D layout
+    public int[][] getTileLayout(){return tileLayout;}
 }

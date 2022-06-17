@@ -31,23 +31,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45"
         tools:ignore="HardcodedText">
 
         <TableRow>
 
             <TextView
                 android:layout_gravity="center"
-                android:text="1." />
+                android:text="1."
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Player1"
                 android:gravity="center"
-                android:text="Player1" />
+                android:text="Player1"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Score1"
                 android:layout_gravity="center"
-                android:text="Score1" />
+                android:text="Score1"
+                android:textColor="@color/white" />
 
         </TableRow>
 
@@ -55,34 +59,40 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:text="2." />
+                android:text="2."
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Player2"
                 android:gravity="center"
-                android:text="Player2" />
+                android:text="Player2"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Score2"
                 android:layout_gravity="center"
-                android:text="Score2" />
+                android:text="Score2"
+                android:textColor="@color/white" />
         </TableRow>
 
         <TableRow>
 
             <TextView
                 android:layout_gravity="center"
-                android:text="3." />
+                android:text="3."
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Player3"
                 android:gravity="center"
-                android:text="Player3" />
+                android:text="Player3"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Score3"
                 android:layout_gravity="center"
-                android:text="Score3" />
+                android:text="Score3"
+                android:textColor="@color/white" />
 
         </TableRow>
 
@@ -90,17 +100,20 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:text="4." />
+                android:text="4."
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Player4"
                 android:gravity="center"
-                android:text="Player4" />
+                android:text="Player4"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Score4"
                 android:layout_gravity="center"
-                android:text="Score4" />
+                android:text="Score4"
+                android:textColor="@color/white" />
 
         </TableRow>
 
@@ -108,16 +121,19 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:text="5." />
+                android:text="5."
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Player5"
                 android:gravity="center"
-                android:text="Player5" />
+                android:text="Player5"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/Score5"
                 android:layout_gravity="center"
+                android:textColor="@color/white"
                 android:text="Score5" />
 
         </TableRow>

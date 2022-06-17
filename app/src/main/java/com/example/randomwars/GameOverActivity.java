@@ -1,3 +1,11 @@
+/*
+       This activity is for the "Game Over" page which is reached when the player dies in the game
+       Here, the score and the level reached by the player in that round is displayed
+       If the player has made a new high-score, an appreciation message is displayed
+       The SharedPreferences keeping track of high-scores is also updated here
+       It has a "Restart" button to restart the game from beginning, a "Main Menu" button to take us to the main menu and an "Exit" button
+ */
+
 package com.example.randomwars;
 
 import android.annotation.SuppressLint;
@@ -10,9 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.HashMap;
 
 public class GameOverActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,9 +27,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
     Button denyExit, confirmExit;
     Dialog exitDialog;
     MusicPlayer gameOverMusicPlayer;
-
     private int score;
-    private int level;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -31,6 +35,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
 
+        // Code to set activity as fullscreen, remove title bar, hide navigation buttons and hiding system bars.
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -40,11 +45,21 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
+        // Unpacking the bundle and retrieving the score and level that have been passed as extras so that they can be displayed
         Bundle bundle = getIntent().getExtras();
         score = bundle.getInt("Score");
-        level = bundle.getInt("Level");
+        int level = bundle.getInt("Level");
+        // Displaying score and level reached
 
-        boolean isHighScore = isHighScore(score);
+        TextView scoreDisplay = findViewById(R.id.scoreDisplay);
+        scoreDisplay.setText(String.format("Your score:\n%s", score));
+        TextView levelDisplay = findViewById(R.id.levelDisplay);
+        levelDisplay.setText(String.format("Level Reached:\n%s", level));
+
+        // Calling the isHighScore() function to check if the score is a highScore or not
+        boolean isHighScore = isHighScore();
+
+        // Displaying the "It's a new High Score" if it is a high-score
         TextView highScoreMsg = findViewById(R.id.isHighscore);
         if(isHighScore){
             highScoreMsg.setText("It's a new High Score");
@@ -53,11 +68,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
             highScoreMsg.setText("");
         }
 
-        TextView scoreDisplay = findViewById(R.id.scoreDisplay);
-        scoreDisplay.setText(String.format("Your score:\n%s", score));
-        TextView levelDisplay = findViewById(R.id.levelDisplay);
-        levelDisplay.setText(String.format("Level Reached:\n%s", level));
-
+        // Initializing the buttons and adding listeners to them
         toMainMenu = findViewById(R.id.gameOverToMainMenu);
         restart = findViewById(R.id.gameOverToRestart);
         exit = findViewById(R.id.settingsToMainMenuButton);
@@ -66,15 +77,27 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         restart.setOnClickListener(this);
         exit.setOnClickListener(this);
 
+        // Creating a MusicPlayer object to play "GameOver" music
         gameOverMusicPlayer = new MusicPlayer(getApplicationContext(), 3);
         gameOverMusicPlayer.playMusic();
     }
 
-    private boolean isHighScore(int score) {
+    /*
+        Function to check if the current score is a high-score
+        Also updating the SharedPreferences if it is
+        Algorithm->
+            The index and the scores of the previous top 5 players are stored in a 2D Array
+            The index and the player names are entered in a HashMap
+            Current score is compared to the stored scores from the end of the array and the brought to its correct position by swapping
+            Then with the help of the array and the HasMap, the SharedPreferences values are updated
+     */
+    private boolean isHighScore() {
         SharedPreferences scores = getSharedPreferences("UserPreferences", MODE_PRIVATE);
         int[][] scoreArr = new int[5][2];
         HashMap<Integer, String> scorePlayer = new HashMap<Integer, String>();
         String name;
+
+        // Storing the values in the array and HashMap
         scoreArr[0][0] = scores.getInt("S1", 0);
         scoreArr[0][1] = 1;
         name = scores.getString("P1", "Player");
@@ -100,6 +123,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
 
         boolean isHighScore = (score != 0) && (score >= scoreArr[4][0]);
 
+        // Comparing and swapping current score to get it to the right position
         int[] temp = new int[2];
         for(int i=4;i>=0;i--){
             if(scoreArr[i][0] <= score){
@@ -114,6 +138,7 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
+        // Updating the SharedPreferences
         SharedPreferences.Editor scoreManager = scores.edit();
         scoreManager.putInt("S1", scoreArr[0][0]);
         scoreManager.putString("P1", scorePlayer.get(scoreArr[0][1]));
@@ -130,7 +155,9 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         return isHighScore;
     }
 
-
+    /*
+        Overriding the onClick method to to define working of buttons when they are pressed
+     */
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
@@ -152,6 +179,10 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /*
+        Method to display a "confirm-exit" popup when the exit button is clicked
+        It has a confirmation and a denial button
+     */
     private void confirmExitPopUp() {
         exitDialog = new Dialog(this);
         exitDialog.setContentView(R.layout.exit_confirmation);
@@ -163,19 +194,20 @@ public class GameOverActivity extends AppCompatActivity implements View.OnClickL
             finishAffinity();
             System.exit(0);
         });
-
         denyExit.setOnClickListener(v -> exitDialog.dismiss());
 
         exitDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         exitDialog.show();
     }
 
+    // Overriding the onPause method to pause the music whenever the user leaves the activity by pressing home button etc.
     @Override
     protected void onPause() {
         gameOverMusicPlayer.pauseMusic();
         super.onPause();
     }
 
+    // Overriding the OnResume method to resume the music whenever the user returns back to this activity
     @Override
     protected void onResume() {
         gameOverMusicPlayer.playMusic();

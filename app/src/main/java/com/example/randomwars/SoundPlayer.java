@@ -1,10 +1,16 @@
+/*
+    Class used to play sound effects during the game.
+    SoundPool object is responsible for storing and playing the sounds whenever a call is made to it.
+    The HashMap allows us to access the soundPool sounds by the use of understandable integer variable names.
+    soundState represents if the game sound is turned on or off in the settings.
+ */
+
 package com.example.randomwars;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
-
 import java.util.HashMap;
 
 public class SoundPlayer {
@@ -14,21 +20,23 @@ public class SoundPlayer {
     Context context;
     public static boolean soundState;
 
-    private final int PLAYER_BULLET = 1;
-    private final int TANK_BULLET = 2;
-    private final int PLAYER_HIT = 3;
-    private final int SOLDIER_KILL = 4;
-    private final int TANK_DESTROY = 5;
-    private final int FIRST_AID = 6;
-    private final int ATOM_BOMB = 7;
-    private final int LEVEL_UP = 8;
-    private final int GAME_OVER = 9;
-
     public SoundPlayer(Context context){
         soundPool = new SoundPool(9, AudioManager.STREAM_MUSIC,100);
         soundMap = new HashMap<>();
         this.context = context;
 
+        // Declaring and initializing variables for the HashMap and soundPool.
+        int PLAYER_BULLET = 1;
+        int TANK_BULLET = 2;
+        int PLAYER_HIT = 3;
+        int SOLDIER_KILL = 4;
+        int TANK_DESTROY = 5;
+        int FIRST_AID = 6;
+        int ATOM_BOMB = 7;
+        int LEVEL_UP = 8;
+        int GAME_OVER = 9;
+
+        // Loading all sounds in the soundPool as well as entering integer to sound references in the HashMap.
         if(soundPool != null){
             soundMap.put(PLAYER_BULLET, soundPool.load(context, R.raw.player_bullet, 1));
             soundMap.put(TANK_BULLET, soundPool.load(context, R.raw.tank_shoot, 1));
@@ -41,14 +49,24 @@ public class SoundPlayer {
             soundMap.put(GAME_OVER, soundPool.load(context, R.raw.game_over, 1));
         }
 
+        // Setting the value of soundState to the previously set value to determine if sounds should be played or not
         SharedPreferences userPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         soundState = userPreferences.getBoolean("Sound", true);
     }
 
+    /*
+        Function to set soundState from settingsActivity
+        Since these sounds are not continuously played, there is no need to change the state of soundPool from play to stop or vice-versa
+        Refer to musicState in MusicPLayer for better understanding
+    */
     public static void setSoundState(boolean state){
         soundState = state;
     }
 
+    /*
+        Function to play the corresponding sound whenever an activity happens
+        Using if-statement to bring soundState to use
+     */
     public void playSound(int sound) {
         AudioManager mgr = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         float streamVolumeCurrent = mgr.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -56,6 +74,8 @@ public class SoundPlayer {
         float volume = streamVolumeCurrent / streamVolumeMax;
 
         if(soundPool != null && soundState){
+            // Suppressing soundMap.get(sound) may produce NULL pointer warning ->
+            // noinspection ConstantConditions
             soundPool.play(soundMap.get(sound), volume, volume, 1, 0, 1.0f);
         }
     }

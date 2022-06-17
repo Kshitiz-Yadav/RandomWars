@@ -1,13 +1,15 @@
+// Method that defines and selects the tile indexes used in TileLayout and then returns it to the TileMap
+
 package com.example.randomwars.map;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-
-import com.example.randomwars.resources.SpriteSheet;
+import com.example.randomwars.animation.SpriteSheet;
 
 abstract public class Tile {
     Rect tileLocation;
 
+    // Defining the tile indexes with an enum for all types of tiles
     public enum tileType{
         FLOOR_TILE,
         WATER_TILE,
@@ -16,10 +18,10 @@ abstract public class Tile {
         DIRT_TILE
     }
 
-    Tile(Rect tileLocation){
-        this.tileLocation = tileLocation;
-    }
+    // Constructor to set the tile location
+    Tile(Rect tileLocation){this.tileLocation = tileLocation;}
 
+    // Method that returns the tile sprite based on the index provided to it
     public static Tile getTile(int tileTypeIndex, Rect tileLocation, SpriteSheet spritesheet){
         switch(tileType.values()[tileTypeIndex]){
             case FLOOR_TILE:
@@ -36,5 +38,6 @@ abstract public class Tile {
         return null;
     }
 
+    // Abstract method to draw the tiles on the screen
     public abstract void draw(Canvas canvas);
 }

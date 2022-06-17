@@ -1,3 +1,5 @@
+// The opening splash page of the app containing two icons: the Madman logo and the Random Wars game icon
+
 package com.example.randomwars;
 
 import android.content.Intent;
@@ -14,6 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Code to set activity as fullscreen, remove title bar, hide navigation buttons and hiding system bars.
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -23,8 +26,11 @@ public class SplashActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
+        // Creating a MediaPlayer object that plays splash screen music when the screen opens
         MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.splash_screen_music);
         mediaPlayer.start();
+
+        // Thread to to keep the user on splash screen by timing out for some time using sleep function
         Thread t = new Thread() {
             public void run() {
                 try{
@@ -34,12 +40,12 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally{
+                    // Going to the main menu page once the thread awakes from sleep
                     Intent toIntro = new Intent(SplashActivity.this, IntroPageActivity.class);
                     startActivity(toIntro);
                 }
             }
         };
-
         t.start();
     }
 }
